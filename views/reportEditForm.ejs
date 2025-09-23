@@ -1,0 +1,98 @@
+
+<% layout('layouts/boilerplate') %>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="form-container">
+                        <h2 class="form-title">Post Your Report</h2>
+
+                        <form method="POST" action="/reports/<%=report._id%>?_method=PUT" class="needs-validation"
+                            novalidate enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="form-label">Title</label>
+                                <input type="text" name="report[title]" value="<%= report.title%>" class="form-control"
+                                    placeholder="Enter Title" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid title.</div>
+                            </div>
+
+                            <div class="mb-3" style="width: 100px; height: 100px; overflow: hidden; border-radius: 6px;">
+                                <img src="<%= report.image.url %>" alt="Report image"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="form-label">Upload New Image:</label>
+                                <input type="file" class="form-control" name="report[image]">
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please provide a valid image.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="report[description]"
+                                    placeholder="Enter Discription" required><%= report.description%></textarea>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid description.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" name="report[location]" class="form-control"
+                                    value="<%= report.location%>" placeholder="Enter Location of disaster" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid location.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">State</label>
+                                <input type="text" name="report[state]" class="form-control" value="<%= report.state%>"
+                                    placeholder="Enter State of disaster" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid state.</div>
+                            </div>
+
+                            <!-- <div class="form-group">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" placeholder="••••••••" required>
+                            </div> -->
+
+                            <div class="form-check">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="remember">
+                                    <label class="form-check-label" for="remember">
+                                        I know if i send wrong post what happens..
+                                    </label>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">Please Tick Checkbox</div>
+                                </div>
+                                <!-- <a href="#" class="forgot-password">Forgot Password?</a> -->
+                            </div>
+
+                            <button type="submit" class="btn btn-primary-custom">
+                                Update
+                            </button>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>

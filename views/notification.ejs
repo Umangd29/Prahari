@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="dashboard-container notifications-page">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Notifications</h1>
+        <div class="header-controls">
+            <div class="settings-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Settings"
+                role="button" aria-label="Open settings">
+                <i class="bi bi-gear"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications List -->
+    <div id="notificationsList" role="list" aria-label="Notifications list">
+        <!-- Notification cards will be dynamically populated here -->
+    </div>
+
+    <!-- Empty State (hidden by default) -->
+    <div id="emptyState" class="text-center py-5" style="display: none;">
+        <i class="bi bi-bell-slash display-1 text-muted mb-3"></i>
+        <h4 class="text-muted">No notifications</h4>
+        <p class="text-muted">You're all caught up! Check back later for updates.</p>
+    </div>
+</div>
+
+<!-- Configuration Modal -->
+<div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="configModalLabel">Notification Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Notification Types</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="reports" checked>
+                        <label class="form-check-label" for="reports">Report notifications</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="alerts" checked>
+                        <label class="form-check-label" for="alerts">Emergency alerts</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="users" checked>
+                        <label class="form-check-label" for="users">User activities</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="system">
+                        <label class="form-check-label" for="system">System updates</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Delivery Method</label>
+                    <select class="form-select">
+                        <option selected>Real-time</option>
+                        <option>Daily digest</option>
+                        <option>Weekly summary</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveConfig">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>

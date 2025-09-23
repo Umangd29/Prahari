@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prahari</title>
+    <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container navbar-div">
+            <a class="navbar-brand logo" href="#"><img class="nav-logo" src="/images/logo3.png"><span
+                    class="navlogo-text">PRAHARI</span></a>
+
+            <button class="navbar-toggler navbar-button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse navbar-box" id="navbarNav">
+                <ul class="navbar-nav mx-auto navbar-list">
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/map">Live Map</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/social">Social Media Trends</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="#">Analytics</a></li> -->
+                            <li class="nav-item"><a class="nav-link" href="/notification">Notification</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center signup">
+                    <a href="/languagechange" class="lang-btn me-2">
+                        <img src="/images/language.jpg" alt="Language">
+                    </a>
+
+                    <% if(!currUser){ %>
+                        <!-- User is NOT logged in -->
+                        <a href="/signup" class="sign-in-btn me-3">SignUp</a>
+                        <a href="/login" class="sign-in-btn me-3">Login</a>
+                        <% } else { %>
+                            <!-- User is logged in -->
+                            <a href="/logout" class="sign-in-btn me-3">Logout</a>
+                            <a href="/profile">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23667eea'/><circle cx='50' cy='35' r='15' fill='white'/><path d='M25 75 Q50 60 75 75' stroke='white' stroke-width='8' fill='none'/></svg>"
+                                    alt="Profile" class="profile-icon">
+                            </a>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- <div class="demo-credentials">
+            <p> <b>username:</b> Demo <br>
+                <b>password:</b> 1234567890
+            </p>
+        </div> -->
+        <div class="container video-part">
+            <div class="row video-sub-part align-items-center">
+                <div class="col-lg-8 video-sub-part-text">
+                    <div class="hero-content animate-fade-up">
+                        <p class="display-7 dashboard-first-para bg-primary text-white mb-4"><b>Use this Demo
+                                Credentials for Login</b></p>
+                        <div class="bg-secondary dashboard-second-para">
+                            <p class="display-7 text-white"><b>Username:</b> Demo</p>
+                            <p class="display-7 text-white"><b>Password:</b> 1234567890</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-3 video-sub-part-demo text-center">
+                    <div class="profile-demo animate-fade-up">
+                        <img src="/images/demovideo.jpg" alt="Demo User">
+                        <div class="play-icon">
+                            <a href="/video"><i class="fas fa-play"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row video-sub-part-button justify-content-center mt-5">
+                <div class="col-auto">
+                    <form method="GET" action="/reports/new">
+                        <button class="post-report-btn animate-fade-up">
+                            <i class="fas fa-flag me-2"></i>Post Report
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <a href="https://drive.google.com/file/d/12gcoLXjxtj6PfIsITyZwHTf5qM3bYoyj/view?usp=sharing" class="marquee-item">🚀 About Our Website</a>
+            <a href="https://drive.google.com/file/d/1KwFdIPfQ92XuHLfop50-Cp5Xohzit0uk/view?usp=sharing" class="marquee-item">understanding Ocean Hazards</a>
+            <a href="https://drive.google.com/file/d/1OGC6wJsD5nUDed7p2a-FhmMLjYCKegfY/view?usp=sharing" class="marquee-item">🌊 Tsunami Guidelines</a>
+            <a href="https://drive.google.com/file/d/1KxQ6stWRG-oar6h936Rhl1NrYO7zkrgh/view?usp=sharing" class="marquee-item">🌪️ Cyclone & Storm Surge Guidelines</a>
+            <a href="https://drive.google.com/file/d/1HZDWqUpGoCmSNICiYSHEGr7jd0MDM6Mx/view?usp=sharing" class="marquee-item">🌊 High Waves Guidelines</a>
+            <a href="https://drive.google.com/file/d/1724Q38G9ZWJk3TxioA8em9d4zDorbVfL/view?usp=sharing" class="marquee-item">🌍 Sea Level Rise Guidelines</a>
+            <a href="https://drive.google.com/file/d/1gf24nobB6vhxaBpvBucQDAEMRQ2tSPCr/view?usp=sharing" class="marquee-item">⚠️ Safe Medium & Dangerous Wave Heights Guidelines</a>
+
+        </div>
+    </div>
+    <!-- Filter Section -->
+    <div class="container filter-part">
+        <div class="filter-section animate-fade-up">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-md-5 filter-part-text-1 col-sm-6">
+                            <!-- <select class="form-select filter-dropdown">
+                                <option>🏷️ Label</option>
+                                <option>Action</option>
+                                <option>Comedy</option>
+                                <option>Drama</option>
+                                <option>Horror</option>
+                            </select> -->
+                            <input type="text" placeholder="Search" name="search">
+                            <button class="btn btn-danger">search</button>
+                        </div>
+                        <div class="col-md-2 filter-part-text col-sm-6">
+                            <select class="form-select filter-dropdown">
+                                <option value="">Location</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
+                                </option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar
+                                    Haveli and
+                                    Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 filter-part-text col-sm-6">
+                            <select class="form-select filter-dropdown">
+                                <option>Date</option>
+                                <option>This Week</option>
+                                <option>This Month</option>
+                                <option>This Year</option>
+                                <option>All Time</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 filter-part-text col-sm-6">
+                            <select class="form-select filter-dropdown">
+                                <option>More</option>
+                                <option>Rating</option>
+                                <option>Duration</option>
+                                <option>Language</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Rated Movies Section -->
+    <div class="container report-part">
+        <div class="content-section report-sub-part animate-fade-up">
+            <div class="d-flex justify-content-between report-sub-part-title align-items-center mb-4">
+                <h2 class="section-title report-sub-part-title-text">
+                    Reports
+                </h2>
+                <a href="#" class="text-decoration-none report-sub-part-title-view">View All</a>
+            </div>
+
+
+            <div id="movieGrid" class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mb-2">
+                <% for (let report of allReport) { %>
+                    <a class="card-anchor" href="/reports/<%= report._id%>">
+                        <div class="card col report-card">
+                            <img src="<%=report.image.url || '/images/ocen bg.jpg' %>" class="card-img-top"
+                                alt="report image">
+                            <div class="card-img-overlay"></div>
+                            <div class="card-body .report-card-body">
+                                <p class="card-text">
+                                    <b>
+                                        <%= report.title %>
+                                    </b>
+                                    <br>
+                                <p class="report-description">
+                                    <%= report.description %>
+                                </p>
+                                </p>
+                            </div>
+                            <div class="report-actions">
+                                <!-- <button class="action-btn like-btn" >
+                                    <i class="far fa-heart"></i>
+                                </button> -->
+                                <button class="action-btn play-btn">
+                                    Open
+                                </button>
+                                <!-- <button class="action-btn share-btn" >
+                                    <i class="fas fa-share"></i>
+                                </button> -->
+                            </div>
+                        </div>
+                    </a>
+
+                    <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-part">
+            <div class="row footer-part-left">
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Home</h6>
+                    <a href="/social">Social Media Analysis</a>
+                    <a href="/map">Map</a>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Support</h6>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Connect With Us</h6>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>&copy; 2025, All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

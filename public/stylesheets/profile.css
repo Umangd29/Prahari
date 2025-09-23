@@ -1,0 +1,199 @@
+/* Profile Page Scoped CSS */
+.profile-container {
+    background-color: #adb5bd;
+    margin-top: 40px;
+}
+
+/* Profile Section */
+.profile-container .profile-section {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-container .profile-img {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #a8d5ff, #d4e9ff);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-container .profile-img::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.profile-container .profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.profile-container .username {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+}
+
+/* Buttons */
+.profile-container .btn-custom {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s ease;
+}
+
+.profile-container .btn-outline-secondary {
+    border: 1.5px solid #dee2e6;
+    color: #6c757d;
+}
+
+.profile-container .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.profile-container .edit-btn {
+    text-decoration: none;
+    color: #6c757d;
+}
+
+.profile-container .filters-section {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+}
+
+.profile-container .form-control,
+.profile-container .form-select {
+    border-radius: 8px;
+    border: 1.5px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.profile-container .form-control:focus,
+.profile-container .form-select:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 0.2rem rgba(77, 171, 247, 0.15);
+}
+
+.profile-container .btn-primary {
+    background: linear-gradient(135deg, #4dabf7, #339af0);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.profile-container .btn-primary:hover {
+    background: linear-gradient(135deg, #339af0, #228be6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+}
+
+/* Section Titles */
+.profile-container .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 2rem;
+}
+
+/* Report & Reward Cards */
+.profile-container .report-card,
+.profile-container .reward-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    border: 1px solid #f1f3f4;
+}
+
+.profile-container .report-card:hover,
+.profile-container .reward-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Placeholder for images and rewards */
+.profile-container .card-placeholder {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 8px;
+    height: 100px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    font-size: 0.9rem;
+}
+
+.profile-container .placeholder-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.profile-container .placeholder-line {
+    height: 12px;
+    background: linear-gradient(90deg, #f8f9fa, #e9ecef, #f8f9fa);
+    border-radius: 6px;
+    animation: shimmer 2s infinite;
+}
+
+.profile-container .placeholder-line.short { width: 60%; }
+.profile-container .placeholder-line.medium { width: 80%; }
+.profile-container .placeholder-line.long { width: 100%; }
+
+@keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+}
+
+/* Rewards Card Heights */
+.profile-container .rewards-section .reward-card:nth-child(1),
+.profile-container .rewards-section .reward-card:nth-child(2) { height: 160px; }
+
+.profile-container .rewards-section .reward-card:nth-child(3) { height: 280px; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-container .profile-section {
+        text-align: center;
+    }
+    .profile-container .profile-img {
+        margin: 0 auto 1rem auto;
+    }
+    .profile-container .username {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .profile-container .btn-custom {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}

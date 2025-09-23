@@ -1,0 +1,100 @@
+
+:root {
+    --primary-color: #ff4444;
+    --secondary-color: #007bff;
+    --dark-bg: #1a1a2e;
+    --card-bg: #ffffff;
+    --text-muted: #6c757d;
+}
+/* Navigation */
+.navbar {
+    /* color: #173F62; */
+    background: rgba(254, 254, 254, 0.61);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 0;
+    /* height: ; */
+}
+
+.navbar-brand {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navlogo-text {
+    margin-left: 6px;
+    font-size: 2vw;
+    color: royalblue;
+}
+
+.navbar-nav .nav-link {
+    color: #333 !important;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.sign-in-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sign-in-btn:hover {
+    background: #cc3333;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.lang-btn img {
+    /* background: var(--primary-color); */
+    /* color: white; */
+    border: none;
+    /* padding: 0.5rem 1.5rem; */
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    height: 50px;
+    width: 50px;
+}
+
+.lang-btn:hover {
+    /* background: #cc3333; */
+    color: white;
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    /* display: none; */
+}
+
+.nav-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+body {
+  padding-top: 50px; /* adjust depending on navbar height */
+}
+
+
+@media (max-width: 768px) {
+    .navlogo-text {
+        font-size: 1.2rem;
+    }
+}

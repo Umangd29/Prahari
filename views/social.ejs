@@ -1,0 +1,160 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="social-page container-fluid py-4">
+    <!-- Filter Section -->
+    <div class="social-page-filter-section filter-section">
+        <div class="row g-3">
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label">Date Range</label>
+                <select class="form-select" id="filter-date">
+                    <option selected value="7">Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label">Platform</label>
+                <select class="form-select" id="filter-platform">
+                    <option selected value="all">All Platform</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="linkedin">LinkedIn</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label">Event Type</label>
+                <select class="form-select" id="filter-event">
+                    <option selected value="all">All Events</option>
+                    <option value="natural">Natural Disasters</option>
+                    <option value="weather">Weather Events</option>
+                    <option value="social">Social Events</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label">Location</label>
+                <select class="form-select" id="filter-location">
+                    <option selected value="all">All Regions</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="kerela">Kerela</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="sikkim">Sikkim</option>
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <label class="form-label">Search</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search keywords...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="row g-4">
+        <!-- Word Cloud Section -->
+        <div class="col-lg-6">
+            <div class="card social-page-dashboard-card dashboard-card h-100">
+                <div class="card-body">
+                    <h5 class="section-title">Word Cloud</h5>
+                    <div class="word-cloud">
+                        <span class="word-large">tsunami</span>
+                        <span class="word-medium">high</span>
+                        <span class="word-medium">waves</span><br>
+                        <span class="word-small">gcustom</span>
+                        <span class="word-medium">viting</span>
+                        <span class="word-small">dtunanai</span><br>
+                        <span class="word-medium">flooding</span>
+                        <span class="word-medium">coastal</span>
+                        <span class="word-medium">damage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sentiment Analysis -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card social-page-dashboard-card dashboard-card h-100">
+                <div class="card-body">
+                    <h5 class="section-title">Sentiment Analysis</h5>
+                    <div class="chart-container" style="height:250px;">
+                        <canvas id="social-sentimentChart"></canvas>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bg-secondary rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                            <span class="small">Positive</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bg-dark rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                            <span class="small">Negative</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-light border rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                            <span class="small">Neutral</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyword Detail -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card social-page-dashboard-card dashboard-card h-100">
+                <div class="card-body">
+                    <h5 class="section-title">Keyword Detail</h5>
+                    <div class="keyword-list">
+                        <div class="keyword-item">
+                            <div class="keyword-avatar"></div>
+                            <div class="flex-grow-1">
+                                <div class="fw-medium">Tsunami Alert</div>
+                                <div class="text-muted small">15,234 mentions</div>
+                            </div>
+                        </div>
+                        <div class="keyword-item">
+                            <div class="keyword-avatar"></div>
+                            <div class="flex-grow-1">
+                                <div class="fw-medium">Coastal Flooding</div>
+                                <div class="text-muted small">12,891 mentions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trending Mentions -->
+        <div class="col-lg-6">
+            <div class="card social-page-dashboard-card dashboard-card">
+                <div class="card-body">
+                    <h5 class="section-title">Trending Mentions</h5>
+                    <div class="trending-list">
+                        <div class="trending-item">
+                            <div class="trending-avatar"></div>
+                            <div class="flex-grow-1">
+                                <div class="fw-medium">Major tsunami warning issued...</div>
+                                <div class="text-muted small">Breaking news from multiple sources</div>
+                            </div>
+                            <div class="text-muted small ms-3">2h</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trend Timeline -->
+        <div class="col-lg-6">
+            <div class="card social-page-dashboard-card dashboard-card">
+                <div class="card-body">
+                    <h5 class="section-title">Trend Timeline</h5>
+                    <div class="chart-container" style="height:250px;">
+                        <canvas id="social-trendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

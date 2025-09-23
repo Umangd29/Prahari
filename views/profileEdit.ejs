@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="profile-edit-page">
+    <div class="edit-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-8 offset-3">
+                    <div class="card edit-card">
+                        <h1 class="page-title">Edit Page</h1>
+
+                        <form id="editProfileForm" class="needs-validation" novalidate>
+                            <!-- Profile Picture Upload Section -->
+                            <div class="profile-upload-section">
+                                <div class="profile-picture-container">
+                                    <div class="profile-picture" id="profilePicture">
+                                        <i class="fas fa-user"></i>
+                                        <div class="upload-overlay"
+                                            onclick="document.querySelector('.profile-edit-page #profileImageInput').click();">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-upload"
+                                    onclick="document.querySelector('.profile-edit-page #profileImageInput').click();">
+                                    <i class="fas fa-upload me-2"></i>Upload
+                                </button>
+                                <input type="file" id="profileImageInput" class="file-input" accept="image/*"
+                                    aria-label="Upload profile picture">
+                            </div>
+
+                            <!-- Name Field -->
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Enter your full name" required aria-describedby="nameHelp">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid name.</div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter your email address" required aria-describedby="emailHelp">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid email address.</div>
+                            </div>
+
+                            <!-- Phone Field -->
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" name="phone"
+                                    placeholder="Enter your phone number" pattern="[0-9\-\+\s\(\)]*"
+                                    aria-describedby="phoneHelp">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid phone number.</div>
+                            </div>
+
+                            <!-- Update Button -->
+                            <button type="submit" class="btn btn-update" id="updateBtn">
+                                <a href="/profile"><i class="fas fa-save me-2"></i>Update</a>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

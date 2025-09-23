@@ -1,0 +1,181 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container-fluid dashboard-container map-page">
+    <div class="row h-100">
+        <!-- Map Section -->
+        <div class="col-lg-8 col-md-7 p-0">
+            <div class="map-container">
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" class="form-control form-control-lg" placeholder="Search location"
+                        id="locationSearch">
+                </div>
+
+                <!-- Map Controls -->
+                <div class="map-controls">
+                    <button class="map-control-btn" onclick="zoomIn()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="map-control-btn" onclick="zoomOut()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button class="map-control-btn" onclick="resetView()">
+                        <i class="fas fa-crosshairs"></i>
+                    </button>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="map-placeholder">
+                    <div class="report-marker wave active" data-report="High Wave Report"
+                        onclick="selectMarker(this)">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="report-marker fire" data-report="Fire Alert" onclick="selectMarker(this)">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="report-marker alert" data-report="Emergency Alert" onclick="selectMarker(this)">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="report-marker social" data-report="Social Media Report"
+                        onclick="selectMarker(this)">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <div class="report-marker citizen" data-report="Citizen Report" onclick="selectMarker(this)">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+
+                <!-- Heatmap Control -->
+                <div class="heatmap-control">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Heatmap</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="heatmapToggle" onchange="toggleHeatmap()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="mt-2">
+                        <div class="d-flex align-items-center">
+                            <div class="heat-gradient-bar"></div>
+                            <small class="ms-2 text-muted">Intensity</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4 col-md-5 p-0">
+            <div class="sidebar">
+                <!-- Sidebar Header -->
+                <div class="sidebar-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        Emergency Dashboard
+                    </h5>
+                </div>
+
+                <!-- Filters Section -->
+                <div class="filter-section">
+                    <h6 class="mb-3 text-dark">Filters</h6>
+
+                    <div class="mb-3">
+                        <label class="form-label">Date range</label>
+                        <select class="form-select">
+                            <option selected>All Dates</option>
+                            <option>Today</option>
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Event type</label>
+                        <select class="form-select">
+                            <option selected>All Types</option>
+                            <option>Natural Disaster</option>
+                            <option>Fire</option>
+                            <option>Flood</option>
+                            <option>Emergency</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="citizen" checked>
+                            <label class="form-check-label" for="citizen">Citizen</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="socialMedia" checked>
+                            <label class="form-check-label" for="socialMedia">Social Media</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="verified" checked>
+                            <label class="form-check-label" for="verified">Verified</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toggle Controls -->
+                <div class="filter-section">
+                    <h6 class="mb-3 text-dark">Display Options</h6>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Reports</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked onchange="toggleReports()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Hotspots</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked onchange="toggleHotspots()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Social Media</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked onchange="toggleSocialMedia()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Report Details -->
+                <div class="report-details">
+                    <div class="report-details-header">
+                        <span id="reportTitle">High Wave Report - Vizag</span>
+                    </div>
+                    <div class="report-details-body">
+                        <div class="report-image-placeholder">
+                            <i class="fas fa-image fa-2x"></i>
+                        </div>
+                        <div class="timestamp">
+                            <i class="fas fa-clock me-1"></i>
+                            <span id="reportTime">Apr 5, 18:23</span>
+                        </div>
+                        <p class="text-muted mb-3" id="reportDescription">
+                            High waves observed in the area since 5:00 PM
+                        </p>
+
+                        <div class="action-buttons">
+                            <button class="btn-verify" onclick="verifyReport()">
+                                <i class="fas fa-check me-1"></i> Verify
+                            </button>
+                            <button class="btn-reject" onclick="rejectReport()">
+                                <i class="fas fa-times me-1"></i> Reject
+                            </button>
+                            <button class="btn-escalate" onclick="escalateReport()">
+                                <i class="fas fa-arrow-up me-1"></i> Escalate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

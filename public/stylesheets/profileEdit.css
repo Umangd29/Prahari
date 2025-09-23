@@ -1,0 +1,255 @@
+.profile-edit-page body {
+    background-image: url("/images/ocen bg.jpg");
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin-top: 40px;
+}
+
+.profile-edit-page .edit-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 4rem);
+}
+
+.profile-edit-page .edit-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    width: 100%;
+    max-width: 480px;
+    border: none;
+}
+
+.profile-edit-page .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 3rem;
+    letter-spacing: -0.5px;
+}
+
+.profile-edit-page .profile-upload-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.profile-edit-page .profile-picture-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.profile-edit-page .profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6c757d, #495057);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-edit-page .profile-picture:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.profile-edit-page .profile-picture i {
+    font-size: 3rem;
+    color: white;
+}
+
+.profile-edit-page .profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-edit-page .upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-edit-page .profile-picture:hover .upload-overlay {
+    opacity: 1;
+}
+
+.profile-edit-page .profile-picture i,
+.profile-edit-page .upload-overlay i {
+    color: white;
+    font-size: 3rem; /* adjust size */
+    z-index: 100;     /* ensure overlay shows it */
+}
+
+
+.profile-edit-page .btn-upload {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px solid #dee2e6;
+    color: #495057;
+    border-radius: 12px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-edit-page .btn-upload:hover {
+    background: linear-gradient(135deg, #e9ecef, #dee2e6);
+    border-color: #adb5bd;
+    color: #343a40;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-edit-page .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.profile-edit-page .form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.profile-edit-page .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15);
+    background: white;
+}
+
+.profile-edit-page .form-control::placeholder {
+    color: #adb5bd;
+    font-style: italic;
+}
+
+.profile-edit-page .form-group {
+    margin-bottom: 2rem;
+}
+
+.profile-edit-page .btn-update {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.profile-edit-page .btn-update a {
+    text-decoration: none;
+    color: white;
+}
+
+.profile-edit-page .btn-update:hover {
+    background: linear-gradient(135deg, #5a67d8, #667eea);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.profile-edit-page .btn-update:active {
+    transform: translateY(0);
+}
+
+.profile-edit-page .file-input {
+    display: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 576px) {
+    .profile-edit-page .edit-card {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .profile-edit-page .page-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .profile-edit-page .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-edit-page .profile-picture i {
+        font-size: 2.5rem;
+    }
+}
+
+/* Loading animation */
+.profile-edit-page .btn-loading {
+    position: relative;
+    color: transparent;
+}
+
+.profile-edit-page .btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success feedback */
+.profile-edit-page .success-feedback {
+    background: linear-gradient(135deg, #51cf66, #40c057);
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

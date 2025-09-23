@@ -1,0 +1,122 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-4 profile-container">
+
+    <!-- Profile Section -->
+    <section class="profile-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="d-flex flex-column flex-md-row align-items-center">
+                    <div class="profile-img me-md-3"></div>
+                    <div class="profile-details">
+                        <h1 class="username"><%= user.username %></h1>
+                        <div class="profile-info">
+                            <p>Email: <%= user.email %></p>
+                            <p>Phone: <%= user.phoneNum %></p>
+                            <p>Aadhar: <%= user.aadharNum %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-md-end mt-3 mt-md-0 gap-2">
+                <a href="/profile/<%= user._id %>/edit" class="btn btn-outline-secondary edit-btn">
+                    <i class="fas fa-edit me-2"></i>Edit
+                </a>
+                <button class="btn btn-outline-secondary share-btn">
+                    <i class="fas fa-share-alt me-2"></i>Share
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section mb-5">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="location" class="form-label fw-semibold text-muted">Location</label>
+                <select id="location" class="form-select">
+                    <option value="">All Locations</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="date" class="form-label fw-semibold text-muted">Date</label>
+                <input type="date" id="date" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary w-100">
+                    <i class="fas fa-search me-2"></i>Apply
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section class="reports-section mb-5">
+        <h2 class="section-title mb-4">Reports by <%= user.username %></h2>
+        <div class="row">
+            <% if (reports.length === 0) { %>
+                <p class="text-muted">No reports yet.</p>
+            <% } else { %>
+                <% reports.forEach(report => { %>
+                    <div class="col-md-4 mb-3">
+                        <div class="report-card card shadow-sm">
+                            <% if (report.image && report.image.url) { %>
+                                <img src="<%= report.image.url %>" class="card-img-top" alt="Report Image">
+                            <% } else { %>
+                                <div class="card-placeholder text-center p-5">
+                                    <i class="fas fa-chart-bar fa-2x"></i>
+                                </div>
+                            <% } %>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= report.title %></h5>
+                                <p class="card-text"><%= report.description.substring(0, 100) %>...</p>
+                                <a href="/reports/<%= report._id %>" class="btn btn-primary btn-sm">View</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Rewards Section -->
+    <section class="rewards-section mb-5">
+        <h2 class="section-title mb-4">Rewards</h2>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="reward-card p-3 shadow-sm">
+                    <div class="placeholder-lines">
+                        <div class="placeholder-line medium"></div>
+                        <div class="placeholder-line long"></div>
+                        <div class="placeholder-line short"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="reward-card p-3 shadow-sm">
+                    <div class="placeholder-lines">
+                        <div class="placeholder-line long"></div>
+                        <div class="placeholder-line medium"></div>
+                        <div class="placeholder-line short"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-3">
+                <div class="reward-card p-3 shadow-sm">
+                    <div class="placeholder-lines">
+                        <div class="placeholder-line long"></div>
+                        <div class="placeholder-line medium"></div>
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line long"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

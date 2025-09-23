@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="language-page container">
+    <h1>Select Your Language</h1>
+    <p class="subtitle">Choose your preferred language to continue</p>
+
+    <form id="languageForm" action="/reports" method="GET">
+        <input type="hidden" name="lang" id="selectedLang" value="">
+
+        <div class="language-grid">
+            <div class="language-option" data-lang="en">
+                <!-- <span class="flag">🇺🇸</span> -->
+                <div class="language-name">English</div>
+            </div>
+
+            <div class="language-option" data-lang="hi">
+                <!-- <span class="flag">🇮🇳</span> -->
+                <div class="language-name">Hindi</div>
+            </div>
+
+            <div class="language-option" data-lang="mr">
+                <!-- <span class="flag">🇮🇳</span> -->
+                <div class="language-name">Marathi</div>
+            </div>
+
+            <div class="language-option" data-lang="ta">
+                <!-- <span class="flag">🇮🇳</span> -->
+                <div class="language-name">Tamil</div>
+            </div>
+
+            <div class="language-option" data-lang="or">
+                <!-- <span class="flag">🇮🇳</span> -->
+                <div class="language-name">Odia</div>
+            </div>
+
+            <div class="language-option" data-lang="gu">
+                <!-- <span class="flag">🇮🇳</span> -->
+                <div class="language-name">Gujarati</div>
+            </div>
+        </div>
+
+        <button type="submit" class="continue-btn" id="continueBtn">Continue</button>
+    </form>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/language.css">
+<script src="/javascripts/language.js"></script>

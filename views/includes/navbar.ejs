@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container navbar-div">
+        <a class="navbar-brand logo" href="/"><img class="nav-logo" src="/images/logo3.png"><span
+                class="navlogo-text">PRAHARI</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/map">Live Map</a></li>
+                <li class="nav-item"><a class="nav-link" href="/social">Social Trends</a></li>
+                <li class="nav-item"><a class="nav-link" href="/notification">Notification</a></li>
+            </ul>
+
+            <div class="d-flex align-items-center signup">
+                <a href="/languagechange" class="lang-btn me-2">
+                    <img src="/images/language.jpg" alt="Language">
+                </a>
+
+                <% if(!currUser){ %>
+                    <!-- User is NOT logged in -->
+                    <a href="/signup" class="sign-in-btn me-3">SignUp</a>
+                    <a href="/login" class="sign-in-btn me-3">Login</a>
+                    <% } else { %>
+                        <!-- User is logged in -->
+                        <a href="/logout" class="sign-in-btn me-3">Logout</a>
+                        <a href="/profile">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23667eea'/><circle cx='50' cy='35' r='15' fill='white'/><path d='M25 75 Q50 60 75 75' stroke='white' stroke-width='8' fill='none'/></svg>"
+                                alt="Profile" class="profile-icon">
+                        </a>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
