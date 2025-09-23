@@ -13,36 +13,34 @@
 
                 <!-- Map Controls -->
                 <div class="map-controls">
-                    <button class="map-control-btn" onclick="zoomIn()">
-                        <i class="fas fa-plus"></i>
+                    <button class="map-control-btn" id="zoomInBtn">
+                        +
                     </button>
-                    <button class="map-control-btn" onclick="zoomOut()">
-                        <i class="fas fa-minus"></i>
+                    <button class="map-control-btn" id="zoomOutBtn">
+                        −
                     </button>
-                    <button class="map-control-btn" onclick="resetView()">
-                        <i class="fas fa-crosshairs"></i>
+                    <button class="map-control-btn" id="resetBtn">
+                        ⟳
                     </button>
                 </div>
 
                 <!-- Map Placeholder -->
                 <div class="map-placeholder">
-                    <div class="report-marker wave active" data-report="High Wave Report"
-                        onclick="selectMarker(this)">
+                    <!-- <div class="report-marker wave active" data-report="High Wave Report">
                         <i class="fas fa-water"></i>
                     </div>
-                    <div class="report-marker fire" data-report="Fire Alert" onclick="selectMarker(this)">
+                    <div class="report-marker fire" data-report="Fire Alert">
                         <i class="fas fa-fire"></i>
                     </div>
-                    <div class="report-marker alert" data-report="Emergency Alert" onclick="selectMarker(this)">
+                    <div class="report-marker alert" data-report="Emergency Alert">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div class="report-marker social" data-report="Social Media Report"
-                        onclick="selectMarker(this)">
+                    <div class="report-marker social" data-report="Social Media Report">
                         <i class="fas fa-share-alt"></i>
                     </div>
-                    <div class="report-marker citizen" data-report="Citizen Report" onclick="selectMarker(this)">
+                    <div class="report-marker citizen" data-report="Citizen Report">
                         <i class="fas fa-user"></i>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Heatmap Control -->
@@ -50,7 +48,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="fw-bold">Heatmap</span>
                         <label class="toggle-switch">
-                            <input type="checkbox" id="heatmapToggle" onchange="toggleHeatmap()">
+                            <input type="checkbox" id="heatmapToggle">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -100,7 +98,7 @@
                         </select>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="map-category mb-3">
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" id="citizen" checked>
                             <label class="form-check-label" for="citizen">Citizen</label>
@@ -123,7 +121,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span>Reports</span>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked onchange="toggleReports()">
+                            <input type="checkbox" id="reportsToggle" checked>
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -131,7 +129,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span>Hotspots</span>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked onchange="toggleHotspots()">
+                            <input type="checkbox" id="hotspotsToggle" checked>
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -139,14 +137,14 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Social Media</span>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked onchange="toggleSocialMedia()">
+                            <input type="checkbox" id="socialToggle" checked>
                             <span class="slider"></span>
                         </label>
                     </div>
                 </div>
 
                 <!-- Report Details -->
-                <div class="report-details">
+                <!-- <div class="report-details">
                     <div class="report-details-header">
                         <span id="reportTitle">High Wave Report - Vizag</span>
                     </div>
@@ -163,18 +161,18 @@
                         </p>
 
                         <div class="action-buttons">
-                            <button class="btn-verify" onclick="verifyReport()">
+                            <button class="btn-verify" id="verifyBtn">
                                 <i class="fas fa-check me-1"></i> Verify
                             </button>
-                            <button class="btn-reject" onclick="rejectReport()">
+                            <button class="btn-reject" id="rejectBtn">
                                 <i class="fas fa-times me-1"></i> Reject
                             </button>
-                            <button class="btn-escalate" onclick="escalateReport()">
+                            <button class="btn-escalate" id="escalateBtn">
                                 <i class="fas fa-arrow-up me-1"></i> Escalate
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

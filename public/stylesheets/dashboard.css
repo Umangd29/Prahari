@@ -561,4 +561,13 @@ body {
     .marquee-content {
         font-size: 14px;
     }
+
+    .dashboard-first-para {
+        font-size: 1rem;
+        width: 75vw;
+    }
+    .dashboard-second-para {
+        font-size: 1rem;
+        width: 75vw;
+    }
 }

@@ -1,37 +1,48 @@
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.map-page');
-
     if (!container) return;
 
-    console.log('Emergency Dashboard loaded');
+    const mapPlaceholder = container.querySelector('.map-placeholder');
+    let zoomLevel = 1;
+    const zoomStep = 0.2;
+    const minZoom = 0.5;
+    const maxZoom = 3;
 
-    // Map control functions
+    function applyZoom() {
+        mapPlaceholder.style.transform = `scale(${zoomLevel})`;
+        mapPlaceholder.style.transformOrigin = "center center";
+    }
+
+    // Zoom In
     function zoomIn() {
-        console.log('Zooming in...');
+        if (zoomLevel < maxZoom) {
+            zoomLevel += zoomStep;
+            applyZoom();
+            console.log(`Zoomed In: ${zoomLevel.toFixed(1)}x`);
+        }
     }
 
+    // Zoom Out
     function zoomOut() {
-        console.log('Zooming out...');
+        if (zoomLevel > minZoom) {
+            zoomLevel -= zoomStep;
+            applyZoom();
+            console.log(`Zoomed Out: ${zoomLevel.toFixed(1)}x`);
+        }
     }
 
+    // Reset
     function resetView() {
-        console.log('Resetting view...');
+        zoomLevel = 1;
+        applyZoom();
+        console.log("View Reset");
     }
 
     // Heatmap toggle
     function toggleHeatmap() {
         const toggle = container.querySelector('#heatmapToggle');
-        if (toggle.checked) {
-            console.log('Heatmap enabled');
-        } else {
-            console.log('Heatmap disabled');
-        }
+        console.log(toggle.checked ? 'Heatmap enabled' : 'Heatmap disabled');
     }
-
-    // Display toggles
-    function toggleReports() { console.log('Toggling reports display'); }
-    function toggleHotspots() { console.log('Toggling hotspots display'); }
-    function toggleSocialMedia() { console.log('Toggling social media display'); }
 
     // Marker selection
     function selectMarker(marker) {
@@ -60,29 +71,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Action button functions
+    // Action buttons
     function verifyReport() {
         const reportTitle = container.querySelector('#reportTitle').textContent;
         alert(`Report "${reportTitle}" has been verified!`);
-        console.log('Report verified');
     }
-
     function rejectReport() {
         const reportTitle = container.querySelector('#reportTitle').textContent;
         alert(`Report "${reportTitle}" has been rejected!`);
-        console.log('Report rejected');
     }
-
     function escalateReport() {
         const reportTitle = container.querySelector('#reportTitle').textContent;
         alert(`Report "${reportTitle}" has been escalated!`);
-        console.log('Report escalated');
     }
 
-    // Search functionality
+    // Search input
     const searchInput = container.querySelector('#locationSearch');
     if (searchInput) {
-        searchInput.addEventListener('keypress', function (e) {
+        searchInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
                 const searchTerm = this.value;
                 console.log(`Searching for: ${searchTerm}`);
@@ -91,41 +97,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Attach map control button events
-    const zoomInBtn = container.querySelector('.map-control-btn:nth-child(1)');
-    const zoomOutBtn = container.querySelector('.map-control-btn:nth-child(2)');
-    const resetBtn = container.querySelector('.map-control-btn:nth-child(3)');
+    // Attach map control events
+    container.querySelector('#zoomInBtn')?.addEventListener('click', zoomIn);
+    container.querySelector('#zoomOutBtn')?.addEventListener('click', zoomOut);
+    container.querySelector('#resetBtn')?.addEventListener('click', resetView);
 
-    if (zoomInBtn) zoomInBtn.addEventListener('click', zoomIn);
-    if (zoomOutBtn) zoomOutBtn.addEventListener('click', zoomOut);
-    if (resetBtn) resetBtn.addEventListener('click', resetView);
+    // Toggles
+    container.querySelector('#heatmapToggle')?.addEventListener('change', toggleHeatmap);
 
-    // Attach toggle events
-    const heatmapToggle = container.querySelector('#heatmapToggle');
-    if (heatmapToggle) heatmapToggle.addEventListener('change', toggleHeatmap);
-
-    container.querySelectorAll('.toggle-switch input').forEach(input => {
-        const onchangeFn = input.getAttribute('onchange');
-        if (onchangeFn && typeof window[onchangeFn] === 'function') {
-            input.addEventListener('change', window[onchangeFn]);
-        }
-    });
-
-    // Set default active marker
-    const defaultMarker = container.querySelector('.report-marker.wave');
-    if (defaultMarker) selectMarker(defaultMarker);
-
-    // Attach action buttons
-    const verifyBtn = container.querySelector('.btn-verify');
-    const rejectBtn = container.querySelector('.btn-reject');
-    const escalateBtn = container.querySelector('.btn-escalate');
-
-    if (verifyBtn) verifyBtn.addEventListener('click', verifyReport);
-    if (rejectBtn) rejectBtn.addEventListener('click', rejectReport);
-    if (escalateBtn) escalateBtn.addEventListener('click', escalateReport);
-
-    // Attach marker click events
+    // Markers
     container.querySelectorAll('.report-marker').forEach(marker => {
         marker.addEventListener('click', () => selectMarker(marker));
     });
+    const defaultMarker = container.querySelector('.report-marker.wave');
+    if (defaultMarker) selectMarker(defaultMarker);
+
+    // Action buttons
+    container.querySelector('#verifyBtn')?.addEventListener('click', verifyReport);
+    container.querySelector('#rejectBtn')?.addEventListener('click', rejectReport);
+    container.querySelector('#escalateBtn')?.addEventListener('click', escalateReport);
+
+    // Initial zoom setup
+    applyZoom();
 });
