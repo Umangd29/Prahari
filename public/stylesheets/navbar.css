@@ -19,6 +19,8 @@
 .navbar-brand {
     text-decoration: none;
     font-weight: bold;
+    display: flex;
+    flex-direction: row;
 }
 
 .navlogo-text {
@@ -87,6 +89,8 @@
     object-fit: cover;
     border-radius: 30px;
 }
+
+
 
 body {
   padding-top: 50px; /* adjust depending on navbar height */
