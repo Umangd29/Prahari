@@ -30,10 +30,10 @@
             <div class="collapse navbar-collapse navbar-box" id="navbarNav">
                 <ul class="navbar-nav mx-auto navbar-list">
                     <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/map">Live Map</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/social">Social Media Trends</a></li>
-                            <!-- <li class="nav-item"><a class="nav-link" href="#">Analytics</a></li> -->
-                            <li class="nav-item"><a class="nav-link" href="/notification">Notification</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/map">Live Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/social">Social Media Trends</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="#">Analytics</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="/notification">Notification</a></li>
                 </ul>
 
                 <div class="d-flex align-items-center signup">
@@ -71,12 +71,18 @@
             <div class="row video-sub-part align-items-center">
                 <div class="col-lg-8 video-sub-part-text">
                     <div class="hero-content animate-fade-up">
-                        <p class="display-7 dashboard-first-para bg-primary text-white mb-2"><b>Use this Demo
-                                Credentials for Login</b></p>
-                        <div class="bg-secondary dashboard-second-para">
-                            <p class="display-7 text-white"><b>Username:</b> demo</p>
-                            <p class="display-7 text-white"><b>Password:</b> 1234567890</p>
-                        </div>
+                        <% if(!currUser){ %>
+                            <p class="display-7 dashboard-first-para bg-primary text-white mb-2"><b>Use this Demo
+                                    Credentials for Login</b></p>
+                            <div class="bg-secondary dashboard-second-para">
+                                <p class="display-7 text-white"><b>Username:</b> demo</p>
+                                <p class="display-7 text-white"><b>Password:</b> 1234567890</p>
+                            </div>
+                            <% } else { %>
+                                <p class="display-7 dashboard-first-para bg-primary text-white mb-2"
+                                    style="all: unset;">.</p>
+                                <% } %>
+
                     </div>
                 </div>
                 <div class="col-lg-4 mt-3 video-sub-part-demo text-center">
@@ -103,13 +109,20 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <a href="https://drive.google.com/file/d/12gcoLXjxtj6PfIsITyZwHTf5qM3bYoyj/view?usp=sharing" class="marquee-item">🚀 About Our Website</a>
-            <a href="https://drive.google.com/file/d/1KwFdIPfQ92XuHLfop50-Cp5Xohzit0uk/view?usp=sharing" class="marquee-item">understanding Ocean Hazards</a>
-            <a href="https://drive.google.com/file/d/1OGC6wJsD5nUDed7p2a-FhmMLjYCKegfY/view?usp=sharing" class="marquee-item">🌊 Tsunami Guidelines</a>
-            <a href="https://drive.google.com/file/d/1KxQ6stWRG-oar6h936Rhl1NrYO7zkrgh/view?usp=sharing" class="marquee-item">🌪️ Cyclone & Storm Surge Guidelines</a>
-            <a href="https://drive.google.com/file/d/1HZDWqUpGoCmSNICiYSHEGr7jd0MDM6Mx/view?usp=sharing" class="marquee-item">🌊 High Waves Guidelines</a>
-            <a href="https://drive.google.com/file/d/1724Q38G9ZWJk3TxioA8em9d4zDorbVfL/view?usp=sharing" class="marquee-item">🌍 Sea Level Rise Guidelines</a>
-            <a href="https://drive.google.com/file/d/1gf24nobB6vhxaBpvBucQDAEMRQ2tSPCr/view?usp=sharing" class="marquee-item">⚠️ Safe Medium & Dangerous Wave Heights Guidelines</a>
+            <a href="https://drive.google.com/file/d/12gcoLXjxtj6PfIsITyZwHTf5qM3bYoyj/view?usp=sharing"
+                class="marquee-item">🚀 About Our Website</a>
+            <a href="https://drive.google.com/file/d/1KwFdIPfQ92XuHLfop50-Cp5Xohzit0uk/view?usp=sharing"
+                class="marquee-item">understanding Ocean Hazards</a>
+            <a href="https://drive.google.com/file/d/1OGC6wJsD5nUDed7p2a-FhmMLjYCKegfY/view?usp=sharing"
+                class="marquee-item">🌊 Tsunami Guidelines</a>
+            <a href="https://drive.google.com/file/d/1KxQ6stWRG-oar6h936Rhl1NrYO7zkrgh/view?usp=sharing"
+                class="marquee-item">🌪️ Cyclone & Storm Surge Guidelines</a>
+            <a href="https://drive.google.com/file/d/1HZDWqUpGoCmSNICiYSHEGr7jd0MDM6Mx/view?usp=sharing"
+                class="marquee-item">🌊 High Waves Guidelines</a>
+            <a href="https://drive.google.com/file/d/1724Q38G9ZWJk3TxioA8em9d4zDorbVfL/view?usp=sharing"
+                class="marquee-item">🌍 Sea Level Rise Guidelines</a>
+            <a href="https://drive.google.com/file/d/1gf24nobB6vhxaBpvBucQDAEMRQ2tSPCr/view?usp=sharing"
+                class="marquee-item">⚠️ Safe Medium & Dangerous Wave Heights Guidelines</a>
 
         </div>
     </div>
@@ -119,71 +132,66 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="row">
-                        <div class="col-md-5 filter-part-text-1 col-sm-6">
-                            <!-- <select class="form-select filter-dropdown">
-                                <option>🏷️ Label</option>
-                                <option>Action</option>
-                                <option>Comedy</option>
-                                <option>Drama</option>
-                                <option>Horror</option>
-                            </select> -->
-                            <input type="text" placeholder="Search" name="search">
-                            <button class="btn btn-danger">search</button>
-                        </div>
-                        <div class="col-md-2 filter-part-text col-sm-6">
-                            <select class="form-select filter-dropdown">
-                                <option value="">Location</option>
-                                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                <option value="Assam">Assam</option>
-                                <option value="Bihar">Bihar</option>
-                                <option value="Chhattisgarh">Chhattisgarh</option>
-                                <option value="Goa">Goa</option>
-                                <option value="Gujarat">Gujarat</option>
-                                <option value="Haryana">Haryana</option>
-                                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                <option value="Jharkhand">Jharkhand</option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Manipur">Manipur</option>
-                                <option value="Meghalaya">Meghalaya</option>
-                                <option value="Mizoram">Mizoram</option>
-                                <option value="Nagaland">Nagaland</option>
-                                <option value="Odisha">Odisha</option>
-                                <option value="Punjab">Punjab</option>
-                                <option value="Rajasthan">Rajasthan</option>
-                                <option value="Sikkim">Sikkim</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Tripura">Tripura</option>
-                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                <option value="Uttarakhand">Uttarakhand</option>
-                                <option value="West Bengal">West Bengal</option>
-                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
-                                </option>
-                                <option value="Chandigarh">Chandigarh</option>
-                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar
-                                    Haveli and
-                                    Daman and Diu</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Lakshadweep">Lakshadweep</option>
-                                <option value="Ladakh">Ladakh</option>
-                                <option value="Puducherry">Puducherry</option>
-                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 filter-part-text col-sm-6">
-                            <select class="form-select filter-dropdown">
-                                <option>Today</option>
-                                <option>This Week</option>
-                                <option>This Month</option>
-                                <option>This Year</option>
-                                <option>All Time</option>
-                            </select>
-                        </div>
-                        <!-- <div class="col-md-2 filter-part-text col-sm-6">
+                        <form class="d-flex me-5" role="search" action="/search" method="GET">
+                            <div class="col-md-5 filter-part-text-1 col-sm-6">
+                                <input type="text" placeholder="Search" name="q">
+                                <button class="btn btn-danger">search</button>
+
+                            </div>
+                            <div class="col-md-2 filter-part-text col-sm-6 ms-3">
+                                <select class="form-select filter-dropdown" name="location">
+                                    <option value="">Location</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
+                                    </option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar
+                                        Haveli and
+                                        Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Ladakh">Ladakh</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 filter-part-text col-sm-6">
+                                <select class="form-select filter-dropdown" name="dateRange">
+                                    <option value="">All Time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="year">This Year</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-md-2 filter-part-text col-sm-6">
                             <select class="form-select filter-dropdown">
                                 <option>More</option>
                                 <option>Rating</option>
@@ -191,13 +199,14 @@
                                 <option>Language</option>
                             </select>
                         </div> -->
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Top Rated Movies Section -->
+    
     <div class="container report-part">
         <div class="content-section report-sub-part animate-fade-up">
             <div class="d-flex justify-content-between report-sub-part-title align-items-center mb-4">
@@ -247,27 +256,87 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-part">
-            <div class="row footer-part-left">
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h6>Home</h6>
-                    <a href="/social">Social Media Analysis</a>
-                    <a href="/map">Map</a>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h6>Support</h6>
-                    <a href="#">Contact Us</a>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h6>Connect With Us</h6>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Logo and Description Section -->
+                <div class="footer-section logo-section">
+                    <div class="logo">
+                        <div>
+                            <img class="nav-logo me-3" src="/images/logo3.png">
+                        </div>
+                        <h2 style="color: white;">Prahari</h2>
+                    </div>
+                    <p class="logo-description">
+                        Protecting coastal communities through real-time hazard monitoring and community-driven
+                        insights.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
+
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/map"><i class="fas fa-map-marked-alt"></i> Live Map</a></li>
+                        <li><a href="/reports/new"><i class="fas fa-exclamation-triangle"></i> Report Hazard</a></li>
+                        <li><a href="/social"><i class="fas fa-chart-line"></i> Social Analytics</a></li>
+                        <li><a href="/notification"><i class="fas fa-bell"></i> Notification</a></li>
+                    </ul>
+                </div>
+
+                <!-- Our Services Section -->
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="/social">Tsunami Warnings</a></li>
+                        <li><a href="/social">Storm Surge Alerts</a></li>
+                        <li><a href="/social">High Wave Monitoring</a></li>
+                        <li><a href="/social">Coastal Current Updates</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us Section -->
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@prahari.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 801 234 5678</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                INCOIS, Hyderabad<br>
+                                Telangana, India 500090
+                            </div>
+                        </div>
+                    </div>
+                    <a href="tel:1-800-OCEAN" class="emergency-hotline">
+                        <i class="fas fa-phone-alt"></i>
+                        Emergency Hotline: 1-800-OCEAN
+                    </a>
+                </div>
             </div>
-            <div class="copyright text-center">
-                <p>&copy; 2025, All Rights Reserved</p>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2025 Prahari. All rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>

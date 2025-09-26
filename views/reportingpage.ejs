@@ -1,0 +1,188 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="report-system">
+    <div class=" submit-btn main-container">
+        <!-- Report Content Tab -->
+        <div id="report-tab" class=" submit-btn tab-content active">
+            <!-- Report Form -->
+            <div class=" submit-btn card">
+                <div class=" submit-btn card-header">
+                    <h3 class=" submit-btn section-title mb-0">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Submit Report
+                    </h3>
+                </div>
+                <div class=" submit-btn card-body">
+                    <form id="reportForm">
+                        <!-- Violation Category -->
+                        <div class="mb-4">
+                            <label for="violation-category" class=" submit-btn form-label">
+                                <i class="fas fa-tags me-2"></i>
+                                Violation Category *
+                            </label>
+                            <select class=" submit-btn form-select" id="violation-category" required>
+                                <option value="">Select a violation category</option>
+                                <option value="abusive-content">Abusive Content</option>
+                                <option value="toxic-behavior">Toxic Behavior</option>
+                                <option value="spam">Spam</option>
+                                <option value="harassment">Harassment</option>
+                                <option value="hate-speech">Hate Speech</option>
+                                <option value="violence">Violence or Threats</option>
+                                <option value="inappropriate-content">Inappropriate Content</option>
+                                <option value="misinformation">Misinformation</option>
+                                <option value="copyright">Copyright Violation</option>
+                                <option value="privacy">Privacy Violation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Detailed Description -->
+                        <div class="mb-4">
+                            <label for="description" class=" submit-btn form-label">
+                                <i class="fas fa-edit me-2"></i>
+                                Detailed Description *
+                            </label>
+                            <textarea class=" submit-btn form-control" id="description" rows="6"
+                                placeholder="Please provide specific details about the violation. Include relevant context, specific examples, and explain how this content violates our community guidelines."
+                                required></textarea>
+                            <div class="form-text">Minimum 50 characters required. Be specific and factual.</div>
+                        </div>
+
+                        <!-- Evidence Upload -->
+                        <div class="mb-4">
+                            <label class=" submit-btn form-label">
+                                <i class="fas fa-paperclip me-2"></i>
+                                Supporting Evidence (Optional)
+                            </label>
+                            <div class=" submit-btn file-upload-area" id="fileUploadArea">
+                                <i class="fas fa-cloud-upload-alt fa-2x text-primary mb-3"></i>
+                                <p class="mb-2">Drop files here or <strong>click to browse</strong></p>
+                                <p class="text-muted small">Supported formats: JPG, PNG, PDF, DOC (Max 10MB each)</p>
+                                <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+                                    style="display: none;">
+                            </div>
+                            <div class=" submit-btn uploaded-files" id="uploadedFiles"></div>
+                        </div>
+
+                        <!-- Anonymous Reporting -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="anonymous-report">
+                                <label class="form-check-label" for="anonymous-report">
+                                    <i class="fas fa-user-secret me-2"></i>
+                                    Submit this report anonymously
+                                </label>
+                            </div>
+                            <div class="form-text">Anonymous reports may take longer to process and you won't receive
+                                status updates.</div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class=" submit-btn terms-checkbox">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms-agreement" required>
+                                <label class="form-check-label" for="terms-agreement">
+                                    I agree to the <a href="#" onclick="showTermsModal()">Terms and Conditions</a> and
+                                    confirm that the information provided is accurate to the best of my knowledge. I
+                                    understand that false reporting may result in account restrictions.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-outline-secondary me-md-2" onclick="resetForm()">
+                                <i class="fas fa-undo me-2"></i>Reset Form
+                            </button>
+                            <button type="submit" class=" submit-btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report History Tab -->
+        <div id="history-tab" class=" submit-btn tab-content">
+            <div class=" submit-btn card">
+                <div class=" submit-btn card-header">
+                    <h3 class=" submit-btn section-title mb-0">
+                        <i class="fas fa-history"></i>
+                        My Report History
+                    </h3>
+                </div>
+                <div class=" submit-btn card-body">
+                    <div id="reportHistory">
+                        <!-- Sample report items -->
+                        <div class=" submit-btn report-history-item">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h6 class="mb-1">Report #RPT-2024-0015</h6>
+                                    <span class=" submit-btn report-status  submit-btn status-under-review">Under Review</span>
+                                </div>
+                                <small class="text-muted">Submitted 2 days ago</small>
+                            </div>
+                            <p class="mb-2"><strong>Category:</strong> Hate Speech</p>
+                            <p class="mb-0 text-muted">Reported inappropriate comments targeting specific groups...</p>
+                        </div>
+
+                        <div class=" submit-btn report-history-item">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h6 class="mb-1">Report #RPT-2024-0012</h6>
+                                    <span class=" submit-btn report-status  submit-btn status-resolved">Resolved</span>
+                                </div>
+                                <small class="text-muted">Submitted 1 week ago</small>
+                            </div>
+                            <p class="mb-2"><strong>Category:</strong> Spam</p>
+                            <p class="mb-0 text-muted">Multiple duplicate promotional posts in community forums...</p>
+                        </div>
+
+                        <div class=" submit-btn report-history-item">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h6 class="mb-1">Report #RPT-2024-0008</h6>
+                                    <span class=" submit-btn report-status  submit-btn status-rejected">Rejected</span>
+                                </div>
+                                <small class="text-muted">Submitted 2 weeks ago</small>
+                            </div>
+                            <p class="mb-2"><strong>Category:</strong> Inappropriate Content</p>
+                            <p class="mb-0 text-muted">Content reviewed and found to be within community guidelines...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Track Report Tab -->
+        <div id="track-tab" class=" submit-btn tab-content">
+            <div class=" submit-btn card">
+                <div class=" submit-btn card-header">
+                    <h3 class=" submit-btn section-title mb-0">
+                        <i class="fas fa-search"></i>
+                        Track Report Status
+                    </h3>
+                </div>
+                <div class=" submit-btn card-body">
+                    <div class="mb-4">
+                        <label for="report-id-search" class=" submit-btn form-label">Report ID</label>
+                        <div class="input-group">
+                            <input type="text" class=" submit-btn form-control" id="report-id-search"
+                                placeholder="Enter report ID (e.g., RPT-2024-0015)">
+                            <button class=" submit-btn btn-primary" onclick="trackReport()">
+                                <i class="fas fa-search me-2"></i>Track
+                            </button>
+                        </div>
+                    </div>
+                    <div id="trackingResult" style="display: none;">
+                        <div class="alert alert-info">
+                            <h5><i class="fas fa-info-circle me-2"></i>Report Status</h5>
+                            <p class="mb-0" id="trackingDetails">Report details will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

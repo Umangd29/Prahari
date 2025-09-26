@@ -11,7 +11,7 @@
     background-size: cover;
     min-height: 100vh;
     position: relative;
-    margin-top: 40px;
+    /* margin-top: 10px; */
 }
 
 .login-page::before {

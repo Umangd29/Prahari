@@ -15,26 +15,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Apply filter button functionality
-    const applyBtn = container.querySelector('.btn-primary');
-    if (applyBtn) {
-        applyBtn.addEventListener('click', () => {
-            const location = container.querySelector('#location').value;
-            const date = container.querySelector('#date').value;
+    // // Apply filter button functionality
+    // const applyBtn = container.querySelector('.btn-primary');
+    // if (applyBtn) {
+    //     applyBtn.addEventListener('click', () => {
+    //         const location = container.querySelector('#location').value;
+    //         const date = container.querySelector('#date').value;
 
-            // Temporary feedback animation
-            applyBtn.innerHTML = '<i class="fas fa-check me-2"></i>Applied!';
-            applyBtn.style.background = 'linear-gradient(135deg, #51cf66, #40c057)';
+    //         // Temporary feedback animation
+    //         applyBtn.innerHTML = '<i class="fas fa-check me-2"></i>Applied!';
+    //         applyBtn.style.background = 'linear-gradient(135deg, #51cf66, #40c057)';
 
-            setTimeout(() => {
-                applyBtn.innerHTML = '<i class="fas fa-search me-2"></i>Apply';
-                applyBtn.style.background = 'linear-gradient(135deg, #4dabf7, #339af0)';
-            }, 1500);
+    //         setTimeout(() => {
+    //             applyBtn.innerHTML = '<i class="fas fa-search me-2"></i>Apply';
+    //             applyBtn.style.background = 'linear-gradient(135deg, #4dabf7, #339af0)';
+    //         }, 1500);
 
-            // Here you could also trigger actual filtering of reports
-            console.log(`Filter applied: Location = ${location}, Date = ${date}`);
-        });
-    }
+    //         // Here you could also trigger actual filtering of reports
+    //         console.log(`Filter applied: Location = ${location}, Date = ${date}`);
+    //     });
+    // }
 
     // Profile buttons feedback (Edit / Share)
     const profileButtons = container.querySelectorAll('.btn-outline-secondary');

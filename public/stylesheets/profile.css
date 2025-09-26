@@ -1,7 +1,9 @@
 /* Profile Page Scoped CSS */
 .profile-container {
     background-color: #adb5bd;
-    margin-top: 40px;
+    margin-top: 60px;
+    border-radius: 20px;
+    padding-top: 1rem;
 }
 
 /* Profile Section */
@@ -131,6 +133,10 @@
     transition: all 0.3s ease;
     margin-bottom: 1.5rem;
     border: 1px solid #f1f3f4;
+
+}
+.profile-container .report-card{
+    height: 35vw;
 }
 
 .profile-container .report-card:hover,
@@ -165,35 +171,73 @@
     animation: shimmer 2s infinite;
 }
 
-.profile-container .placeholder-line.short { width: 60%; }
-.profile-container .placeholder-line.medium { width: 80%; }
-.profile-container .placeholder-line.long { width: 100%; }
+.profile-container .placeholder-line.short {
+    width: 60%;
+}
+
+.profile-container .placeholder-line.medium {
+    width: 80%;
+}
+
+.profile-container .placeholder-line.long {
+    width: 100%;
+}
 
 @keyframes shimmer {
-    0% { background-position: -200px 0; }
-    100% { background-position: calc(200px + 100%) 0; }
+    0% {
+        background-position: -200px 0;
+    }
+
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
 }
 
 /* Rewards Card Heights */
 .profile-container .rewards-section .reward-card:nth-child(1),
-.profile-container .rewards-section .reward-card:nth-child(2) { height: 160px; }
+.profile-container .rewards-section .reward-card:nth-child(2) {
+    height: 160px;
+}
 
-.profile-container .rewards-section .reward-card:nth-child(3) { height: 280px; }
+.profile-container .rewards-section .reward-card:nth-child(3) {
+    height: 280px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .profile-container .profile-section {
         text-align: center;
     }
+
     .profile-container .profile-img {
         margin: 0 auto 1rem auto;
     }
+
     .profile-container .username {
         font-size: 2rem;
         margin-bottom: 1rem;
     }
+
     .profile-container .btn-custom {
         width: 100%;
         margin-bottom: 0.5rem;
     }
+}
+
+
+.bagde-img{
+    height: 100px;
+    width: 100px;
+}
+
+.bagde-text {
+    text-align: center;
+    font-weight: 500;
+    text-decoration: dotted underline;
+}
+
+.certificate-card {
+    border-radius: 20px;
+    height: 400px;
+    width: 400px;
 }

@@ -2,7 +2,7 @@
 
 
     <!-- Main Content -->
-    <div class="container" style="margin-top: 100px; ">
+    <div class="container" style="margin-top: 50px; ">
         <!-- Back Button -->
         <div class="mb-3">
             <a href="/" class="text-light back-btn text-decoration-none">
@@ -17,16 +17,25 @@
                     <img src="<%= report.image.url%>" alt="The Crown" class="movie-poster img-fluid w-100">
                 </div>
                 <div class="col-md-8 p-4">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-
+                    <div class="d-flex justify-content-between align-items-start">
                         <div class="text-end">
                             <span class="text-muted">28 Comments</span>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                            <a href="/reportingpage" class="reporting-icon"><i class="fa-solid fa-triangle-exclamation"></i></a>
+                            <div class="mt-2">
+                                <fieldset class="starability-slot">
+                                    <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]"
+                                        value="1" checked aria-label="No rating." />
+                                    <input type="radio" id="first-rate1" name="Review[rating]" value="1" />
+                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                    <input type="radio" id="first-rate2" name="Review[rating]" value="2" />
+                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                    <input type="radio" id="first-rate3" name="Review[rating]" value="3" />
+                                    <label for="first-rate3" title="Average">3 stars</label>
+                                    <input type="radio" id="first-rate4" name="Review[rating]" value="4" />
+                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                    <input type="radio" id="first-rate5" name="Review[rating]" value="5" />
+                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                </fieldset>
                             </div>
                         </div>
                     </div>
@@ -89,33 +98,32 @@
             <div class="row" id="commentsContainer">
                 <div class="col-md-6">
                     <div class="comment-card">
-                        <div class="comment-stars">
+                        <!-- <div class="comment-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                        </div>
-                        <h6 class="fw-bold">Samatha D.</h6>
+                        </div> -->
+                        <h6 class="fw-bold">Umang</h6>
                         <p class="mb-2">"The recent ocean disaster report is truly eye-opening! The scale of the
                             devastation, the impact on marine life, and the challenges faced by coastal communities are
                             all presented in a clear and compelling way. The analysis and data are thorough, providing a
-                            detailed understanding of the event. A must-read for anyone concerned about environmental
-                            safety and ocean conservation."</p>
+                            detailed understanding of the event."</p>
 
                         <small class="text-muted">Posted on August 14, 2023</small>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="comment-card">
-                        <div class="comment-stars">
+                        <!-- <div class="comment-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                        </div>
-                        <h6 class="fw-bold">Jenny Wilson</h6>
+                        </div> -->
+                        <h6 class="fw-bold">Akta</h6>
                         <p class="mb-2">"This report highlights the severe consequences of oceanic disasters with
                             striking clarity. The insights on coastal erosion and marine habitat loss are especially
                             informative. Very well-researched and essential for policymakers and researchers alike."</p>
@@ -125,14 +133,14 @@
                 </div>
                 <div class="col-md-6">
                     <div class="comment-card">
-                        <div class="comment-stars">
+                        <!-- <div class="comment-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                        </div>
-                        <h6 class="fw-bold">Leslie Alexander</h6>
+                        </div> -->
+                        <h6 class="fw-bold">Sujan</h6>
                         <p class="mb-2">"A compelling analysis of the recent disaster’s impact on local fishing
                             communities. The report combines hard data with human stories, making the situation both
                             understandable and urgent. Highly recommended."</p>
@@ -141,14 +149,14 @@
                 </div>
                 <div class="col-md-6">
                     <div class="comment-card">
-                        <div class="comment-stars">
+                        <!-- <div class="comment-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                        </div>
-                        <h6 class="fw-bold">Jenny Wilson</h6>
+                        </div> -->
+                        <h6 class="fw-bold">Dixit</h6>
                         <p class="mb-2">"An excellent report that thoroughly documents the rising ocean temperatures and
                             their connection to severe storms. The visuals and maps make it easier to grasp the scope of
                             the problem."</p>
@@ -159,14 +167,14 @@
                 <!-- Hidden Comments -->
                 <div class="col-md-6 hidden-comments">
                     <div class="comment-card">
-                        <div class="comment-stars">
+                        <!-- <div class="comment-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                        </div>
-                        <h6 class="fw-bold">Michael Johnson</h6>
+                        </div> -->
+                        <h6 class="fw-bold">Yatin</h6>
                         <p class="mb-2">"The depth of research in this ocean disaster report is impressive. It clearly
                             explains the chain reaction of environmental effects and provides actionable recommendations
                             for mitigation. A crucial read for environmentalists."</p>
@@ -175,14 +183,14 @@
                 </div>
                 <div class="col-md-6 hidden-comments">
                     <div class="comment-card">
-                        <div class="comment-stars">
+                        <!-- <div class="comment-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="far fa-star"></i>
-                        </div>
-                        <h6 class="fw-bold">Sarah Davis</h6>
+                        </div> -->
+                        <h6 class="fw-bold">Tushar</h6>
                         <p class="mb-2">"Insightful and alarming. This report sheds light on how ocean pollution and
                             climate change amplify the impact of natural disasters. A must-read for anyone interested in
                             global ocean conservation efforts."</p>

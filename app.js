@@ -286,6 +286,129 @@ app.put('/profile/:id', isLoggedIn, isProfileOwner, wrapAsync(async (req, res) =
     res.redirect(`/profile/${id}`);
 }));
 
+app.get('/reportingpage', (req, res) => res.render("reportingpage"));
+
+app.get('/search', async (req, res) => {
+    const { q, location, dateRange } = req.query;
+
+    let filters = {};
+
+    // Only add "q" filter if user typed something
+    if (q && q.trim() !== "") {
+        filters.$or = [
+            { title: { $regex: q, $options: "i" } },
+            { description: { $regex: q, $options: "i" } },
+            { category: { $regex: q, $options: "i" } }
+        ];
+    }
+
+    // Location filter
+    if (location && location.trim() !== "") {
+        filters.location = { $regex: location, $options: "i" };
+    }
+
+    // Date filter
+    if (dateRange && dateRange !== "") {
+        let startDate;
+        const now = new Date();
+
+        switch (dateRange) {
+            case "today":
+                startDate = new Date(now.setHours(0, 0, 0, 0));
+                break;
+            case "week":
+                startDate = new Date();
+                startDate.setDate(now.getDate() - 7);
+                break;
+            case "month":
+                startDate = new Date();
+                startDate.setMonth(now.getMonth() - 1);
+                break;
+            case "year":
+                startDate = new Date();
+                startDate.setFullYear(now.getFullYear() - 1);
+                break;
+        }
+
+        if (startDate) {
+            filters.createdAt = { $gte: startDate };
+        }
+    }
+
+    try {
+        // If no filters applied → return all reports
+        const results = await Report.find(filters);
+        res.render("dashboard", { allReport: results });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+});
+
+// app.get('/profilesearch/:id', async (req, res) => {
+//     const { q, location, dateRange } = req.query;
+//     const { id } = req.params;
+//     const user = await User.findById(id);
+//     if (!user) {
+//         req.flash("error", "User not found");
+//         return res.redirect("/reports");
+//     }
+//     let filters = {};
+
+//     // Only add "q" filter if user typed something
+//     if (q && q.trim() !== "") {
+//         filters.$or = [
+//             { title: { $regex: q, $options: "i" } },
+//             { description: { $regex: q, $options: "i" } },
+//             { category: { $regex: q, $options: "i" } }
+//         ];
+//     }
+
+//     // Location filter
+//     if (location && location.trim() !== "") {
+//         filters.location = { $regex: location, $options: "i" };
+//     }
+
+//     // Date filter
+//     if (dateRange && dateRange !== "") {
+//         let startDate;
+//         const now = new Date();
+
+//         switch (dateRange) {
+//             case "today":
+//                 startDate = new Date(now.setHours(0, 0, 0, 0));
+//                 break;
+//             case "week":
+//                 startDate = new Date();
+//                 startDate.setDate(now.getDate() - 7);
+//                 break;
+//             case "month":
+//                 startDate = new Date();
+//                 startDate.setMonth(now.getMonth() - 1);
+//                 break;
+//             case "year":
+//                 startDate = new Date();
+//                 startDate.setFullYear(now.getFullYear() - 1);
+//                 break;
+//         }
+
+//         if (startDate) {
+//             filters.createdAt = { $gte: startDate };
+//         }
+//     }
+
+//     try {
+//         // If no filters applied → return all reports
+//         const results = await Report.find(filters);
+//         res.render("profile", { reports: results, user } );
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send("Server Error");
+//     }
+// });
+
+
+
 
 // STATIC PAGES
 app.get('/notification', (req, res) => res.render("notification"));
