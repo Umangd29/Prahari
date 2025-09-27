@@ -1,7 +1,5 @@
 <% layout('layouts/boilerplate') %>
 
-
-    <!-- Main Content -->
     <main class="main-content">
         <div class="container">
             <div class="row justify-content-center">
@@ -9,90 +7,156 @@
                     <div class="form-container">
                         <h2 class="form-title">Welcome Back</h2>
 
-                        <form method="POST" action="/signup" class="needs-validation" novalidate>
+                        <form method="POST" action="/signup" id="signupForm" class="needs-validation" novalidate>
+                            <!-- Username -->
                             <div class="form-group">
                                 <label class="form-label">Username</label>
-                                <input type="text" name="username" class="form-control"
+                                <input type="text" name="username" id="username" class="form-control"
                                     placeholder="Enter your username" required>
                                 <div class="invalid-feedback">Please provide a valid Username.</div>
-                                <div class="valid-feedback"> Looks good!</div>
                             </div>
+
+                            <!-- Email -->
                             <div class="form-group">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter your email"
-                                    required>
+                                <input type="email" name="email" id="email" class="form-control"
+                                    placeholder="Enter your email" required>
                                 <div class="invalid-feedback">Please provide a valid email.</div>
-                                <div class="valid-feedback"> Looks good!</div>
                             </div>
+
+                            <!-- User Role -->
                             <div class="form-group">
                                 <label class="form-label" for="userRole">Select Categories:</label>
                                 <select class="form-control role-dropdown" name="userRole" id="userRole" required>
-                                    <option class="role-options" value="">-- Select a role --</option>
-                                    <option class="role-options" value="citizen">Citizen</option>
+                                    <option value="">-- Select a role --</option>
+                                    <option value="citizen">Citizen</option>
                                     <option value="volunteer">Volunteer</option>
                                     <option value="coastal residence">Coastal Residence</option>
-
-                                    <option class="role-options" value="disaster manager">Disaster
-                                        Manager</option>
-                                    <option class="role-options" value="admin">
-                                        Admin</option>
+                                    <option value="disaster manager">Disaster Manager</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                                 <div class="invalid-feedback">Please select a role</div>
-                                <div class="valid-feedback"> Looks good!</div>
                             </div>
 
+                            <!-- Aadhaar + OTP -->
                             <div class="form-group">
                                 <label class="form-label">Aadhar Card</label>
-                                <input type="text" name="aadharNum" class="form-control" placeholder="xxxx-xxxx-xxxx"
-                                    required>
-                                <div class="invalid-feedback">Please provide a valid phone number.</div>
-                                <div class="valid-feedback"> Looks good!</div>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" id="aadharInput" name="aadharNum" class="form-control me-2"
+                                        placeholder="xxxx-xxxx-xxxx" required>
+                                    <button type="button" id="sendOtpBtn" class="btn btn-primary-custom">Send
+                                        OTP</button>
+                                </div>
+
+                                <div id="aadharError" class="invalid-feedback">Please provide a valid Aadhaar number.
+                                </div>
+
+                                <!-- Display generated OTP here -->
+                                <div id="otpDisplay" class="mt-2" style="color: #fff; font-weight: 600; display:none;">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">OTP</label>
-                                <input type="text" name="otp" class="form-control" placeholder="xxx-xxx" required>
-                                <div class="invalid-feedback">Please provide a valid OTP</div>
-                                <div class="valid-feedback"> Looks good!</div>
+
+                            <!-- OTP Input -->
+                            <div class="form-group" id="otpGroup" style="display:none;">
+                                <label class="form-label">Enter OTP</label>
+                                <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP">
+                                <div id="otpError" class="invalid-feedback">Invalid OTP. Please try again.</div>
+                                <button type="button" id="verifyOtpBtn" class="btn btn-primary-custom mt-2">Verify
+                                    OTP</button>
                             </div>
+
+                            <!-- Phone -->
                             <div class="form-group">
                                 <label class="form-label">Phone No.</label>
-                                <input type="text" name="phoneNum" class="form-control" placeholder="+91 xxxxxxxxxx"
-                                    required>
+                                <input type="text" name="phoneNum" id="phoneNum" class="form-control"
+                                    placeholder="+91 xxxxxxxxxx" required>
                                 <div class="invalid-feedback">Please provide a valid phone number.</div>
-                                <div class="valid-feedback"> Looks good!</div>
                             </div>
+
+                            <!-- Password -->
                             <div class="form-group">
                                 <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="••••••••"
-                                    required minlength="8">
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="••••••••" required minlength="8">
                                 <div class="invalid-feedback">Please provide a valid password.</div>
-                                <div class="valid-feedback"> Looks good!</div>
                             </div>
-                            <!-- <div class="form-check">
-                                <a href="#" class="forgot-password">Forgot Password?</a>
-                            </div> -->
-                            <button type="submit" class="btn btn-primary-custom">
-                                Sign up
-                            </button>
+
+                            <button type="submit" id="submitBtn" class="btn btn-primary-custom">Sign up</button>
                         </form>
-
-                        <!-- <div class="divider">OR</div>
-
-                        <button class="btn btn-social">
-                            <i class="fab fa-google me-2"></i>
-                            Sign up with Google
-                        </button>
-
-                        <button class="btn btn-social">
-                            <i class="fab fa-facebook-f me-2"></i>
-                            Sign up with Facebook
-                        </button>
-
-                        <div class="signup-link">
-                            Already have an account yet? <a href="/login">Login</a>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let generatedOtp = "";
+
+            const aadharInput = document.getElementById("aadharInput");
+            const sendOtpBtn = document.getElementById("sendOtpBtn");
+            const otpGroup = document.getElementById("otpGroup");
+            const otpInput = document.getElementById("otpInput");
+            const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+            const otpErrorDiv = document.getElementById("otpError");
+            const otpDisplay = document.getElementById("otpDisplay");
+            const submitBtn = document.getElementById("submitBtn");
+            const aadharError = document.getElementById("aadharError");
+            const signupForm = document.getElementById("signupForm");
+
+            // Disable submit initially
+            submitBtn.disabled = true;
+
+            // Send OTP
+            sendOtpBtn.addEventListener("click", function () {
+                const aadhar = aadharInput.value.trim();
+
+                if (!/^\d{12}$/.test(aadhar)) {
+                    aadharError.style.display = "block";
+                    aadharError.textContent = "Aadhaar must be 12 digits";
+                    otpDisplay.style.display = "none";
+                    return;
+                } else {
+                    aadharError.style.display = "none";
+                }
+
+                // Generate OTP
+                generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+                // Show OTP below Aadhaar field
+                otpDisplay.textContent = `Your OTP is: ${generatedOtp}`;
+                otpDisplay.style.display = "block";
+
+                // Show OTP input section
+                otpGroup.style.display = "block";
+            });
+
+            // Verify OTP
+            verifyOtpBtn.addEventListener("click", function () {
+                const enteredOtp = otpInput.value.trim();
+
+                if (enteredOtp === generatedOtp) {
+                    otpErrorDiv.style.display = "none";
+                    alert("OTP verified! You can now submit the form.");
+                    submitBtn.disabled = false;
+                } else {
+                    otpErrorDiv.style.display = "block";
+                    otpErrorDiv.textContent = "Invalid OTP. Please try again.";
+                    submitBtn.disabled = true;
+                }
+            });
+
+            // Only allow digits in OTP
+            otpInput.addEventListener("input", function (e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+
+            // Prevent form submit if OTP not verified
+            signupForm.addEventListener("submit", function (e) {
+                if (submitBtn.disabled) {
+                    e.preventDefault();
+                    alert("Please verify OTP before submitting.");
+                }
+            });
+        });
+    </script>
