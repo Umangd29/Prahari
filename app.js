@@ -20,6 +20,9 @@ const { error } = require("console");
 const { reportSchema } = require("./schema.js");
 const { cloudinary, storage } = require("./cloudConfig.js");
 const MongoStore = require('connect-mongo');
+const dayjs = require("dayjs");
+const relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 
 const upload = multer({ storage });
@@ -151,7 +154,7 @@ app.get('/', (req, res) => res.redirect("/reports"));
 
 app.get('/reports', wrapAsync(async (req, res) => {
     const allReport = await Report.find({}).populate("owner");
-    res.render("dashboard", { allReport });
+    res.render("dashboard", { allReport , dayjs});
 }));
 
 app.get('/reports/new', isLoggedIn, (req, res) => res.render("reportForm"));
@@ -293,7 +296,7 @@ app.get('/search', async (req, res) => {
 
     let filters = {};
 
-    // Only add "q" filter if user typed something
+    // Keyword search
     if (q && q.trim() !== "") {
         filters.$or = [
             { title: { $regex: q, $options: "i" } },
@@ -302,30 +305,30 @@ app.get('/search', async (req, res) => {
         ];
     }
 
-    // Location filter
+    // Location filter (match your schema field name, e.g., 'state')
     if (location && location.trim() !== "") {
-        filters.location = { $regex: location, $options: "i" };
+        filters.state = { $regex: location, $options: "i" };
     }
 
     // Date filter
     if (dateRange && dateRange !== "") {
-        let startDate;
         const now = new Date();
+        let startDate;
 
         switch (dateRange) {
             case "today":
-                startDate = new Date(now.setHours(0, 0, 0, 0));
+                startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
                 break;
             case "week":
-                startDate = new Date();
+                startDate = new Date(now);
                 startDate.setDate(now.getDate() - 7);
                 break;
             case "month":
-                startDate = new Date();
+                startDate = new Date(now);
                 startDate.setMonth(now.getMonth() - 1);
                 break;
             case "year":
-                startDate = new Date();
+                startDate = new Date(now);
                 startDate.setFullYear(now.getFullYear() - 1);
                 break;
         }
@@ -336,9 +339,8 @@ app.get('/search', async (req, res) => {
     }
 
     try {
-        // If no filters applied → return all reports
-        const results = await Report.find(filters);
-        res.render("dashboard", { allReport: results });
+        const results = await Report.find(filters).populate("owner");
+        res.render("dashboard", { allReport: results, dayjs });
     } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");

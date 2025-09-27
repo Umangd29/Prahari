@@ -1,47 +1,421 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="language-page container">
-    <h1>Select Your Language</h1>
-    <p class="subtitle">Choose your preferred language to continue</p>
+<style>
+    .language-page {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #333;
+        padding: 15px;
+        margin-top: 80px;
+    }
 
-    <form id="languageForm" action="/reports" method="GET">
-        <input type="hidden" name="lang" id="selectedLang" value="">
+    .language-page .container {
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        width: 100%;
+        max-width: 900px;
+    }
 
-        <div class="language-grid">
-            <div class="language-option" data-lang="en">
-                <!-- <span class="flag">🇺🇸</span> -->
-                <div class="language-name">English</div>
+    .language-page h1 {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+
+    .language-page .subtitle {
+        color: #666;
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+    }
+
+    .language-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: 500px) {
+        .language-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .language-page .container {
+            padding: 25px 20px;
+        }
+        
+        .language-page h1 {
+            font-size: 1.8rem;
+        }
+    }
+
+    .language-option {
+        padding: 18px 20px;
+        border: 2px solid #e0e6ff;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        background: linear-gradient(135deg, #fafbff, #f8f9ff);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .language-option::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+        transition: all 0.4s ease;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .language-option:hover {
+        border-color: #667eea;
+        background: linear-gradient(135deg, #f0f2ff, #f5f0ff);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+    }
+
+    .language-option:active::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    .language-option.selected {
+        border-color: #667eea;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .language-option.selected::after {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    }
+
+    .language-option .flag {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .language-option .language-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+    }
+
+    .language-option .language-native {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        font-style: italic;
+        margin-bottom: 6px;
+    }
+
+    .language-option .language-status {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .language-option .status-available {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .language-option .status-development {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .language-option.selected .status-available,
+    .language-option.selected .status-development {
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+    }
+
+    .continue-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 16px 45px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+        transform: scale(0.95);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .continue-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .continue-btn.active {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+    }
+
+    .continue-btn.active:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .continue-btn.active:hover::before {
+        left: 100%;
+    }
+
+    .continue-btn:disabled {
+        cursor: not-allowed;
+    }
+
+    .language-page .info-text {
+        color: #888;
+        font-size: 0.85rem;
+        margin-top: 12px;
+        font-style: italic;
+    }
+
+    .language-page .selection-indicator {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4CAF50;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+
+    .language-option.selected .selection-indicator {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .pulse-effect {
+        animation: pulseClick 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes pulseClick {
+        0% {
+            transform: translateY(-2px) scale(1);
+        }
+        50% {
+            transform: translateY(-1px) scale(1.05);
+        }
+        100% {
+            transform: translateY(-1px) scale(1);
+        }
+    }
+</style>
+
+<div class="language-page">
+    <div class="container">
+        <h1>Select Your Language</h1>
+        <p class="subtitle">Choose your preferred language to continue</p>
+
+        <form id="languageForm" action="/reports" method="GET">
+            <input type="hidden" name="lang" id="selectedLang" value="">
+
+            <div class="language-grid">
+                <div class="language-option" data-lang="en">
+                    <span class="flag">🇺🇸</span>
+                    <div class="language-name">English</div>
+                    <div class="language-native">English</div>
+                    <div class="language-status status-available">✅ Available</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="hi">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Hindi</div>
+                    <div class="language-native">हिन्दी</div>
+                    <div class="language-status status-available">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="mr">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Marathi</div>
+                    <div class="language-native">मराठी</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="ta">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Tamil</div>
+                    <div class="language-native">தமிழ்</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="or">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Odia</div>
+                    <div class="language-native">ଓଡ଼ିଆ</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="gu">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Gujarati</div>
+                    <div class="language-native">ગુજરાતી</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="te">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Telugu</div>
+                    <div class="language-native">తెలుగు</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <!-- <div class="language-option" data-lang="kn">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Kannada</div>
+                    <div class="language-native">ಕನ್ನಡ</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
+
+                <div class="language-option" data-lang="ml">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Malayalam</div>
+                    <div class="language-native">മലയാളം</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div> -->
+
+                <div class="language-option" data-lang="bn">
+                    <span class="flag">🇮🇳</span>
+                    <div class="language-name">Bengali</div>
+                    <div class="language-native">বাংলা</div>
+                    <div class="language-status status-development">🚧 Under Development</div>
+                    <div class="selection-indicator">✓</div>
+                </div>
             </div>
 
-            <div class="language-option" data-lang="hi">
-                <!-- <span class="flag">🇮🇳</span> -->
-                <div class="language-name">Hindi</div>
-            </div>
+            <button type="submit" class="continue-btn" id="continueBtn" disabled>Continue to Dashboard</button>
+        </form>
 
-            <div class="language-option" data-lang="mr">
-                <!-- <span class="flag">🇮🇳</span> -->
-                <div class="language-name">Marathi</div>
-            </div>
-
-            <div class="language-option" data-lang="ta">
-                <!-- <span class="flag">🇮🇳</span> -->
-                <div class="language-name">Tamil</div>
-            </div>
-
-            <div class="language-option" data-lang="or">
-                <!-- <span class="flag">🇮🇳</span> -->
-                <div class="language-name">Odia</div>
-            </div>
-
-            <div class="language-option" data-lang="gu">
-                <!-- <span class="flag">🇮🇳</span> -->
-                <div class="language-name">Gujarati</div>
-            </div>
-        </div>
-
-        <button type="submit" class="continue-btn" id="continueBtn">Continue</button>
-    </form>
+        <p class="info-text">Languages marked "Under Development" will redirect to English version</p>
+    </div>
 </div>
 
-<link rel="stylesheet" href="/stylesheets/language.css">
-<script src="/javascripts/language.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const languageOptions = document.querySelectorAll('.language-option');
+        const selectedLangInput = document.getElementById('selectedLang');
+        const continueBtn = document.getElementById('continueBtn');
+
+        // Initially disable continue button
+        continueBtn.disabled = true;
+
+        languageOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                // Remove previous selection
+                languageOptions.forEach(opt => opt.classList.remove('selected'));
+
+                // Add pulse effect for better visual feedback
+                this.classList.add('pulse-effect');
+                setTimeout(() => {
+                    this.classList.remove('pulse-effect');
+                }, 300);
+
+                // Add selected class
+                this.classList.add('selected');
+
+                // Set hidden input value
+                selectedLangInput.value = this.getAttribute('data-lang');
+
+                // Enable button with active state
+                continueBtn.disabled = false;
+                continueBtn.classList.add('active');
+
+                // Update button text based on selection
+                const langName = this.querySelector('.language-name').textContent;
+                continueBtn.textContent = `Continue in ${langName}`;
+            });
+
+            // Improved hover effects
+            option.addEventListener('mouseenter', function () {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(-2px)';
+                }
+            });
+
+            option.addEventListener('mouseleave', function () {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = '';
+                }
+            });
+        });
+
+        // Form submission with validation
+        document.getElementById('languageForm').addEventListener('submit', function (e) {
+            if (!selectedLangInput.value) {
+                e.preventDefault();
+                alert('Please select a language to continue');
+                return false;
+            }
+
+            // Add loading state
+            continueBtn.textContent = 'Loading...';
+            continueBtn.style.opacity = '0.7';
+
+            // Store selection in localStorage for future visits
+            localStorage.setItem('aquasentra_preferred_language', selectedLangInput.value);
+        });
+
+        // Check for previously saved language preference
+        const savedLang = localStorage.getItem('aquasentra_preferred_language');
+        if (savedLang) {
+            const savedOption = document.querySelector(`[data-lang="${savedLang}"]`);
+            if (savedOption) {
+                savedOption.click();
+            }
+        }
+    });
+</script>

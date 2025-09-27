@@ -1,223 +1,251 @@
 <% layout('layouts/boilerplate') %>
 
-
-    <!-- Main Content -->
-    <div class="container" style="margin-top: 55px; margin-bottom: 10px; ">
+    <div class="report-container">
         <!-- Back Button -->
-        <div class="mb-3">
-            <a href="/" class="text-light back-btn text-decoration-none">
-                <i class="fas back-i fa-arrow-left"></i> <span>Back home</span>
-            </a>
-        </div>
+        <a href="/" class="report-back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
 
-        <!-- Movie Hero Section -->
-        <div class="movie-hero">
-            <div class="row g-0">
-                <div class="col-md-4 post-image-div p-4">
-                    <img src="<%= report.image.url%>" alt="The Crown" class="movie-poster img-fluid w-100">
+        <!-- Alert Banner for High Priority Reports -->
+        <!-- <div class="report-alert-banner">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="report-alert-text">
+                High Priority Ocean Hazard Alert - Immediate Attention Required
+            </div>
+        </div> -->
+
+        <!-- Main Report Hero Section -->
+        <div class="report-hero-section">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="report-image-container">
+                        <img src="<%= report.image.url%>" alt="Tsunami Warning Report" class="report-main-image">
+                        <div class="report-priority-badge">High Priority</div>
+                    </div>
                 </div>
-                <div class="col-md-8 p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="text-end">
-                            <span class="text-muted">28 Comments</span>
-                            <a href="/reportingpage" class="reporting-icon"><i class="fa-solid fa-triangle-exclamation"></i><span >Report</span></a>
-                            <div class="mt-2">
-                                <fieldset class="starability-slot">
-                                    <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]"
-                                        value="1" checked aria-label="No rating." />
-                                    <input type="radio" id="first-rate1" name="Review[rating]" value="1" />
-                                    <label for="first-rate1" title="Terrible">1 star</label>
-                                    <input type="radio" id="first-rate2" name="Review[rating]" value="2" />
-                                    <label for="first-rate2" title="Not good">2 stars</label>
-                                    <input type="radio" id="first-rate3" name="Review[rating]" value="3" />
-                                    <label for="first-rate3" title="Average">3 stars</label>
-                                    <input type="radio" id="first-rate4" name="Review[rating]" value="4" />
-                                    <label for="first-rate4" title="Very good">4 stars</label>
-                                    <input type="radio" id="first-rate5" name="Review[rating]" value="5" />
-                                    <label for="first-rate5" title="Amazing">5 stars</label>
-                                </fieldset>
+
+                <div class="col-lg-7">
+                    <div class="report-details-section">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="report-rating-section">
+                                <div class="mt-2">
+                                    <fieldset class="starability-slot">
+                                        <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]"
+                                            value="1" checked aria-label="No rating." />
+                                        <input type="radio" id="first-rate1" name="Review[rating]" value="1" />
+                                        <label for="first-rate1" title="Terrible">1 star</label>
+                                        <input type="radio" id="first-rate2" name="Review[rating]" value="2" />
+                                        <label for="first-rate2" title="Not good">2 stars</label>
+                                        <input type="radio" id="first-rate3" name="Review[rating]" value="3" />
+                                        <label for="first-rate3" title="Average">3 stars</label>
+                                        <input type="radio" id="first-rate4" name="Review[rating]" value="4" />
+                                        <label for="first-rate4" title="Very good">4 stars</label>
+                                        <input type="radio" id="first-rate5" name="Review[rating]" value="5" />
+                                        <label for="first-rate5" title="Amazing">5 stars</label>
+                                    </fieldset>
+                                </div>
+                                <span class="report-rating-text">Rate this report</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <p class="mb-2"><strong>@</strong>
-                        <%= report.owner.username %> &nbsp; &lt; <%= report.owner.userRole %> &gt;
-                    </p>
-                    <p class="mb-2"><strong>Title:</strong>
-                        <%= report.title %>
-                    </p>
-                    <p class="mb-1"><strong>Date:</strong>
-                        <%= report.date ? report.date.toISOString().slice(0, 10) : '' %>
-                    </p>
-
-
-                    <p class="mb-1"><strong>Location:</strong>
-                        <%= report.location %>
-                    </p>
-                    <p class="mb-1"><strong>State:</strong>
-                        <%= report.state %>
-                    </p>
-                    <p class="mb-1"><strong>Description:</strong>
-                        <%= report.description %>
-                    </p>
-                    <!-- <p class="mb-3"><strong>Network:</strong> Netflix</p> -->
-
-                    <!-- <div class="rating-badge">8.6</div> -->
-
-
-                    <div class="d-flex flex-wrap">
-                        <button class="btn btn-watchlist">
-                            <i class="fas fa-heart me-2"></i>Like
-                        </button>
-                        <button class="btn btn-watchlist">
-                            <i class="fas fa-share me-2"></i>Share
-                        </button>
-                    </div>
-
-                    <% if (currUser && (currUser._id.equals(report.owner._id) || currUser.userRole==='disaster manager'
-                        || currUser.userRole==='admin' )) { %>
-                        <div class="d-flex flex-wrap">
-                            <form method="POST" action="/reports/<%= report._id %>?_method=DELETE">
-                                <button class="btn btn-watchlist"><i class="fas fa-trash me-2"></i>Delete</button>
-                            </form>
-                            <a href="/reports/<%= report._id %>/edit" class="btn btn-watchlist">
-                                <i class="fas fa-edit me-2"></i>Edit
+                            <a href="/reportingpage" class="report-action-btn report-action-btn-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Report Issue
                             </a>
                         </div>
-                        <% } %>
+
+                        <h1 class="report-title-main">
+                            <%= report.title %>
+                        </h1>
+
+                        <div class="report-meta-info">
+                            <div class="report-meta-item">
+                                <i class="fas fa-user"></i>
+                                <span class="report-meta-label">Reporter:</span>
+                                <span class="report-meta-value"><strong>@</strong>
+                                    <%= report.owner.username %> (<%= report.owner.userRole %>)
+                                </span>
+                            </div>
+                            <div class="report-meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="report-meta-label">Date:</span>
+                                <span class="report-meta-value">
+                                    <%= report.date ? report.date.toISOString().slice(0, 10) : '' %>
+                                </span>
+                            </div>
+                            <div class="report-meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="report-meta-label">Location:</span>
+                                <span class="report-meta-value">
+                                    <%= report.location %>
+                                </span>
+                            </div>
+                            <div class="report-meta-item">
+                                <i class="fas fa-flag"></i>
+                                <span class="report-meta-label">State:</span>
+                                <span class="report-meta-value">
+                                    <%= report.state %>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="report-description-text">
+                            <strong>URGENT:</strong> Strong seismic activity detected in the Indian Ocean has triggered
+                            a tsunami warning for the Tamil Nadu coastline. Wave heights are expected to reach 5-8
+                            meters with arrival time estimated at 14:30 IST. All coastal residents must evacuate to
+                            higher ground immediately. Emergency services are coordinating with local authorities for
+                            swift evacuation procedures.
+                        </div>
+
+                        <div class="report-actions-section">
+                            <button class="report-action-btn report-action-btn-like">
+                                <i class="fas fa-heart"></i>
+                                Like (23)
+                            </button>
+                            <button class="report-action-btn report-action-btn-share">
+                                <i class="fas fa-share"></i>
+                                Share Alert
+                            </button>
+
+
+                            <!-- Admin/Manager Actions -->
+
+
+                            <% if (currUser && (currUser._id.equals(report.owner._id) ||
+                                currUser.userRole==='disaster manager' || currUser.userRole==='admin' )) { %>
+                                <div class="d-flex flex-wrap">
+                                    <form method="POST" action="/reports/<%= report._id %>?_method=DELETE">
+                                        <button class="report-action-btn report-action-btn-danger"><i
+                                                class="fas fa-trash me-2"></i>Delete</button>
+                                    </form>
+                                    <a href="/reports/<%= report._id %>/edit"
+                                        class="report-action-btn report-action-btn-edit">
+                                        <i class="fas fa-edit me-2"></i>Edit
+                                    </a>
+                                </div>
+                                <% } %>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Enhanced Comments Section -->
+        <div class="report-comments-section">
+            <div class="report-comments-header">
+                <h3 class="report-comments-title">
+                    <i class="fas fa-comments"></i>
+                    Community Comments
+                </h3>
+                <div class="report-comments-count">28 Comments</div>
+            </div>
 
-        <!-- Comments Section -->
-        <div class="comments-section">
-            <h3 class="mb-4"><i class="fas fa-comments me-2"></i>Comments <span class="text-muted fs-6">28
-                    Comments</span></h3>
-
-            <div class="row" id="commentsContainer">
-                <div class="col-md-6">
-                    <div class="comment-card">
-                        <!-- <div class="comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div> -->
-                        <h6 class="fw-bold">Umang</h6>
-                        <p class="mb-2">"The recent ocean disaster report is truly eye-opening! The scale of the
-                            devastation, the impact on marine life, and the challenges faced by coastal communities are
-                            all presented in a clear and compelling way. The analysis and data are thorough, providing a
-                            detailed understanding of the event."</p>
-
-                        <small class="text-muted">Posted on August 14, 2023</small>
-                    </div>
+            <div class="report-comments-grid" id="reportCommentsContainer">
+                <div class="report-comment-card">
+                    <h6 class="report-comment-author">Umang</h6>
+                    <p class="report-comment-text">
+                        "The recent ocean disaster report is truly eye-opening! The scale of the devastation, the impact
+                        on marine life, and the challenges faced by coastal communities are all presented in a clear and
+                        compelling way. The analysis and data are thorough, providing a detailed understanding of the
+                        event."
+                    </p>
+                    <small class="report-comment-date">Posted on August 14, 2023</small>
                 </div>
-                <div class="col-md-6">
-                    <div class="comment-card">
-                        <!-- <div class="comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div> -->
-                        <h6 class="fw-bold">Akta</h6>
-                        <p class="mb-2">"This report highlights the severe consequences of oceanic disasters with
-                            striking clarity. The insights on coastal erosion and marine habitat loss are especially
-                            informative. Very well-researched and essential for policymakers and researchers alike."</p>
 
-                        <small class="text-muted">Posted on August 12, 2023</small>
-                    </div>
+                <div class="report-comment-card">
+                    <h6 class="report-comment-author">Akta</h6>
+                    <p class="report-comment-text">
+                        "This report highlights the severe consequences of oceanic disasters with striking clarity. The
+                        insights on coastal erosion and marine habitat loss are especially informative. Very
+                        well-researched and essential for policymakers and researchers alike."
+                    </p>
+                    <small class="report-comment-date">Posted on August 12, 2023</small>
                 </div>
-                <div class="col-md-6">
-                    <div class="comment-card">
-                        <!-- <div class="comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div> -->
-                        <h6 class="fw-bold">Sujan</h6>
-                        <p class="mb-2">"A compelling analysis of the recent disaster’s impact on local fishing
-                            communities. The report combines hard data with human stories, making the situation both
-                            understandable and urgent. Highly recommended."</p>
-                        <small class="text-muted">Posted on August 14, 2023</small>
-                    </div>
+
+                <div class="report-comment-card">
+                    <h6 class="report-comment-author">Sujan</h6>
+                    <p class="report-comment-text">
+                        "A compelling analysis of the recent disaster's impact on local fishing communities. The report
+                        combines hard data with human stories, making the situation both understandable and urgent.
+                        Highly recommended."
+                    </p>
+                    <small class="report-comment-date">Posted on August 14, 2023</small>
                 </div>
-                <div class="col-md-6">
-                    <div class="comment-card">
-                        <!-- <div class="comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div> -->
-                        <h6 class="fw-bold">Dixit</h6>
-                        <p class="mb-2">"An excellent report that thoroughly documents the rising ocean temperatures and
-                            their connection to severe storms. The visuals and maps make it easier to grasp the scope of
-                            the problem."</p>
-                        <small class="text-muted">Posted on August 12, 2023</small>
-                    </div>
+
+                <div class="report-comment-card">
+                    <h6 class="report-comment-author">Dixit</h6>
+                    <p class="report-comment-text">
+                        "An excellent report that thoroughly documents the rising ocean temperatures and their
+                        connection to severe storms. The visuals and maps make it easier to grasp the scope of the
+                        problem."
+                    </p>
+                    <small class="report-comment-date">Posted on August 12, 2023</small>
                 </div>
 
                 <!-- Hidden Comments -->
-                <div class="col-md-6 hidden-comments">
-                    <div class="comment-card">
-                        <!-- <div class="comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div> -->
-                        <h6 class="fw-bold">Yatin</h6>
-                        <p class="mb-2">"The depth of research in this ocean disaster report is impressive. It clearly
-                            explains the chain reaction of environmental effects and provides actionable recommendations
-                            for mitigation. A crucial read for environmentalists."</p>
-
-                    </div>
+                <div class="report-comment-card report-hidden-comments">
+                    <h6 class="report-comment-author">Yatin</h6>
+                    <p class="report-comment-text">
+                        "The depth of research in this ocean disaster report is impressive. It clearly explains the
+                        chain reaction of environmental effects and provides actionable recommendations for mitigation.
+                        A crucial read for environmentalists."
+                    </p>
+                    <small class="report-comment-date">Posted on August 10, 2023</small>
                 </div>
-                <div class="col-md-6 hidden-comments">
-                    <div class="comment-card">
-                        <!-- <div class="comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div> -->
-                        <h6 class="fw-bold">Tushar</h6>
-                        <p class="mb-2">"Insightful and alarming. This report sheds light on how ocean pollution and
-                            climate change amplify the impact of natural disasters. A must-read for anyone interested in
-                            global ocean conservation efforts."</p>
 
-                        <small class="text-muted">Posted on August 08, 2023</small>
-                    </div>
+                <div class="report-comment-card report-hidden-comments">
+                    <h6 class="report-comment-author">Tushar</h6>
+                    <p class="report-comment-text">
+                        "Insightful and alarming. This report sheds light on how ocean pollution and climate change
+                        amplify the impact of natural disasters. A must-read for anyone interested in global ocean
+                        conservation efforts."
+                    </p>
+                    <small class="report-comment-date">Posted on August 08, 2023</small>
                 </div>
             </div>
 
-            <button class="btn btn-see-more" id="seeMoreBtn" onclick="toggleComments()">See more</button>
-
-
+            <button class="report-see-more-btn" id="reportSeeMoreBtn" onclick="reportToggleComments()">
+                <i class="fas fa-chevron-down"></i> See More Comments
+            </button>
         </div>
-        <div class="map-container ">
-            <div class="map-viewport " id="mapViewport">
-                <div class="map-image" id="mapImage">
+
+        <!-- Enhanced Interactive Map Section -->
+        <div class="report-map-section">
+            <div class="report-map-header">
+                <h3 class="report-map-title">
+                    <i class="fas fa-map-marked-alt"></i>
+                    Incident Location & Impact Zone
+                </h3>
+                <p class="report-map-subtitle">
+                    Interactive map showing the affected areas and evacuation zones
+                </p>
+            </div>
+
+            <div class="report-map-container">
+                <div class="report-map-viewport" id="reportMapViewport">
+                    <div class="report-map-image" id="reportMapImage">
+                        <img src="https://www.mapsofindia.com/maps/india/india-geographical.jpg" alt="Map">
+                    </div>
+
                 </div>
-            </div>
 
-            <div class="zoom-controls">
-                <button class="zoom-btn" id="zoomIn" title="Zoom In">+</button>
-                <button class="zoom-btn" id="zoomOut" title="Zoom Out">−</button>
-            </div>
+                <div class="report-map-controls">
+                    <button class="report-map-btn" id="reportZoomIn" title="Zoom In">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="report-map-btn" id="reportZoomOut" title="Zoom Out">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
 
-            <div class="map-info">
-                <div class="zoom-level" id="zoomLevel">Zoom: 100%</div>
-                <div class="coordinates" id="coordinates">Position: (0, 0)</div>
+                <button class="report-map-reset" id="reportResetView" title="Reset View">
+                    <i class="fas fa-home"></i> Reset View
+                </button>
+
+                <div class="report-map-info">
+                    <div class="report-zoom-level" id="reportZoomLevel">Zoom: 100%</div>
+                    <div class="report-coordinates" id="reportCoordinates">Position: (0, 0)</div>
+                </div>
             </div>
         </div>
     </div>

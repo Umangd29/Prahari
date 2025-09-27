@@ -1,175 +1,790 @@
 <% layout('layouts/boilerplate') %>
+    <!-- Parent class -->
 
-<div class="container-fluid dashboard-container map-page">
-    <div class="row">
-        <!-- Map Section -->
-        <div class="col-lg-8 col-md-7 ">
-            <div class="map-container">
-                <!-- Search Bar -->
-                <div class="search-bar">
-                    <input type="text" class="form-control form-control-lg" placeholder="Search location"
-                        id="locationSearch">
-                </div>
+    <style>
+        /* Prefix all styles with .hazard-map-page */
+        .hazard-map-page .container {
+            /* max-width: 1200px;
+            margin: 0 auto; */
+            padding: 20px;
+            margin-top: 60px;
+        }
 
-                <!-- Map Controls -->
-                <div class="map-controls">
-                    <button class="map-control-btn" id="zoomInBtn">
-                        +
-                    </button>
-                    <button class="map-control-btn" id="zoomOutBtn">
-                        −
-                    </button>
-                    <button class="map-control-btn" id="resetBtn">
-                        ⟳
-                    </button>
-                </div>
+        .hazard-map-page .map-title {
+            font-size: 25px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            background-color: #00A6CC;
+            width: 30vw;
+            padding: 0.5rem 0.5rem;
+            border-radius: 20px;
+            text-align: center;
+        }
 
-                <!-- Map Placeholder -->
-                <div class="map-placeholder">
-                    <div class="report-marker wave active" data-report="High Wave Report">
-                        <i class="fas fa-water"></i>
-                    </div>
-                    <div class="report-marker alert" data-report="Emergency Alert">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="report-marker social" data-report="Social Media Report">
-                        <i class="fas fa-share-alt"></i>
-                    </div>
-                    <div class="report-marker citizen" data-report="Citizen Report">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
+        .map-title-div {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-                <!-- Heatmap Control -->
-                <div class="heatmap-control">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="fw-bold">Heatmap</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="heatmapToggle">
-                            <span class="slider"></span>
-                        </label>
+        .hazard-map-page .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .hazard-map-page .control-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .hazard-map-page .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hazard-map-page .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        .hazard-map-page .checkbox-group label {
+            font-weight: 500;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+
+        .hazard-map-page .legend {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .hazard-map-page .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .hazard-map-page .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hazard-map-page .legend-color.red {
+            background-color: #e74c3c;
+        }
+
+        .hazard-map-page .legend-color.yellow {
+            background-color: #f39c12;
+        }
+
+        .hazard-map-page .legend-color.green {
+            background-color: #27ae60;
+        }
+
+        .hazard-map-page .map-container {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .hazard-map-page #map {
+            height: 600px;
+            width: 100%;
+        }
+
+        .hazard-map-page .status-bar {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hazard-map-page .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hazard-map-page .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #27ae60;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .hazard-map-page .alert-popup {
+            min-width: 320px;
+            max-width: 400px;
+        }
+
+        .hazard-map-page .popup-header {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .hazard-map-page .critical-header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            animation: critical-glow 2s infinite;
+        }
+
+        .hazard-map-page .warning-header {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .hazard-map-page .normal-header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #2c3e50;
+        }
+
+        @keyframes critical-glow {
+            0% {
+                box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(231, 76, 60, 0.8);
+            }
+
+            100% {
+                box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+            }
+        }
+
+        .hazard-map-page .hazard-type {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            padding: 6px;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .hazard-map-page .description {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .hazard-map-page .additional-info {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .hazard-map-page .popup-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .hazard-map-page .source-info {
+            margin-bottom: 8px;
+        }
+
+        .hazard-map-page .emergency-notice {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 8px;
+            animation: emergency-flash 1.5s infinite;
+        }
+
+        @keyframes emergency-flash {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hazard-map-page .control-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hazard-map-page .legend {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+
+    <div class="hazard-map-page">
+        <div class="container">
+            <div class="map-title-div">
+                <h1 class="map-title">India Ocean Hazard Map</h1>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="citizens" checked>
+                        <label for="citizens">Citizens</label>
                     </div>
-                    <div class="mt-2">
-                        <div class="d-flex align-items-center">
-                            <div class="heat-gradient-bar"></div>
-                            <small class="ms-2 text-muted">Intensity</small>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="volunteers" checked>
+                        <label for="volunteers">Volunteers</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="coastalResidents" checked>
+                        <label for="coastalResidents"> Coastal Residents</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="disasterManager" checked>
+                        <label for="disasterManager">Disaster Managers</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="incois" checked>
+                        <label for="incois">INCOIS</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="socialMedia" checked>
+                        <label for="socialMedia">Social Media</label>
+                    </div>
+
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color red"></div>
+                            <span>Critical Alert</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color yellow"></div>
+                            <span>Warning</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color green"></div>
+                            <span> Normal/Safe</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Sidebar -->
-        <div class="col-lg-4 col-md-5 mt-4">
-            <div class="sidebar">
-                <!-- Sidebar Header -->
-                <div class="sidebar-header">
-                    <h5 class="mb-0">
-                        <i class="fas fa-shield-alt me-2"></i>
-                        Emergency Dashboard
-                    </h5>
-                </div>
-
-                <!-- Filters Section -->
-                <div class="filter-section">
-                    <h6 class="mb-3 text-dark">Filters</h6>
-
-                    <div class="mb-3">
-                        <label class="form-label">Date range</label>
-                        <select class="form-select">
-                            <option selected>All Dates</option>
-                            <option>Today</option>
-                            <option>Last 7 days</option>
-                            <option>Last 30 days</option>
-                        </select>
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="status-bar">
+                    <div class="status-item">
+                        <div class="status-dot"></div>
+                        <span>Live Updates Active</span>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Event type</label>
-                        <select class="form-select">
-                            <option selected>All Types</option>
-                            <option>Natural Disaster</option>
-                            <option>Flood</option>
-                            <option>Emergency</option>
-                        </select>
+                    <div class="status-item">
+                        <span>Last Update: <span id="lastUpdate">Just now</span></span>
                     </div>
-
-                    <div class="map-category mb-3">
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="citizen" checked>
-                            <label class="form-check-label" for="citizen">Citizen</label>
-                        </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="socialMedia" checked>
-                            <label class="form-check-label" for="socialMedia">Social Media</label>
-                        </div>
-                        <!-- <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="verified" checked>
-                            <label class="form-check-label" for="verified">Verified</label>
-                        </div> -->
+                    <div class="status-item">
+                        <span>Active Alerts: <span id="alertCount">15</span></span>
                     </div>
                 </div>
-
-                <!-- Toggle Controls -->
-                <div class="filter-section">
-                    <h6 class="mb-3 text-dark">Display Options</h6>
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span>Reports</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="reportsToggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span>Hotspots</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="hotspotsToggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>Social Media</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="socialToggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Report Details -->
-                <!-- <div class="report-details">
-                    <div class="report-details-header">
-                        <span id="reportTitle">High Wave Report - Vizag</span>
-                    </div>
-                    <div class="report-details-body">
-                        <div class="report-image-placeholder">
-                            <i class="fas fa-image fa-2x"></i>
-                        </div>
-                        <div class="timestamp">
-                            <i class="fas fa-clock me-1"></i>
-                            <span id="reportTime">Apr 5, 18:23</span>
-                        </div>
-                        <p class="text-muted mb-3" id="reportDescription">
-                            High waves observed in the area since 5:00 PM
-                        </p>
-
-                        <div class="action-buttons">
-                            <button class="btn-verify" id="verifyBtn">
-                                <i class="fas fa-check me-1"></i> Verify
-                            </button>
-                            <button class="btn-reject" id="rejectBtn">
-                                <i class="fas fa-times me-1"></i> Reject
-                            </button>
-                            <button class="btn-escalate" id="escalateBtn">
-                                <i class="fas fa-arrow-up me-1"></i> Escalate
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
-</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        // Initialize map centered on India
+        const map = L.map('map').setView([20.5937, 78.9629], 9);
+
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Ocean hazard data from different stakeholders
+        // Ocean hazard data from different stakeholders
+        const hazardData = {
+            citizens: [
+                {
+                    lat: 19.0760, lng: 72.8777, level: 'yellow', type: 'High Waves', icon: '🌊',
+                    title: '⚠️ HIGH WAVES - Mumbai Marine Drive',
+                    description: 'Citizens report unusually high waves splashing over Marine Drive. Pedestrian walkway wet and slippery.',
+                    source: 'Citizen Report', time: '5 minutes ago', reporter: 'Local Resident', wave_height: '4-5 meters'
+                },
+                {
+                    lat: 13.0827, lng: 80.2707, level: 'red', type: 'Coastal Erosion', icon: '🏖️',
+                    title: '🚨 SEVERE EROSION - Chennai Beach',
+                    description: 'Rapid coastal erosion observed by morning walkers. Beach width reduced by 10 meters overnight after storm.',
+                    source: 'Citizen Alert', time: '2 minutes ago', reporter: 'Beach Walker', erosion_rate: '10m overnight'
+                },
+                {
+                    lat: 15.2993, lng: 74.1240, level: 'green', type: 'Normal', icon: '✅',
+                    title: '✅ CALM CONDITIONS - Goa Beaches',
+                    description: 'Citizens report calm seas and good weather conditions. Safe for swimming and water activities.',
+                    source: 'Tourist Report', time: '30 minutes ago', reporter: 'Beach Visitor', conditions: 'Excellent'
+                }
+            ],
+
+            incois: [
+                {
+                    lat: 13.6288, lng: 79.4192, level: 'red', type: 'Tsunami Warning', icon: '🌊',
+                    title: '🚨 TSUNAMI EARLY WARNING - Bay of Bengal',
+                    description: 'INCOIS issues tsunami warning for east coast. Magnitude 8.1 earthquake detected. Immediate evacuation advised.',
+                    source: 'INCOIS Hyderabad', time: '30 seconds ago', reporter: 'Tsunami Warning Center', magnitude: 'M8.1 undersea quake'
+                },
+                {
+                    lat: 11.0168, lng: 76.9558, level: 'yellow', type: 'Ocean Temperature', icon: '🌡️',
+                    title: '🌡️ TEMPERATURE ANOMALY - Arabian Sea',
+                    description: 'INCOIS monitoring unusual sea surface temperature rise. Potential impact on local weather patterns.',
+                    source: 'INCOIS Marine Met', time: '1 hour ago', reporter: 'Oceanographic Division', temp_anomaly: '+3°C above normal'
+                },
+                {
+                    lat: 18.5204, lng: 73.8567, level: 'red', type: 'Cyclone Track', icon: '🌀',
+                    title: '🌀 CYCLONE TRACKING - Western Coast',
+                    description: 'INCOIS cyclone tracking shows severe cyclonic storm approaching Maharashtra coast. Landfall in 6 hours.',
+                    source: 'INCOIS Storm Center', time: '10 minutes ago', reporter: 'Cyclone Warning Division', landfall_eta: '6 hours'
+                },
+                {
+                    lat: 14.5203, lng: 74.3587, level: 'green', type: 'Ocean Monitoring', icon: '📡',
+                    title: '📡 ROUTINE MONITORING - Karnataka Coast',
+                    description: 'All INCOIS buoy systems operational. Ocean parameters within normal range for this season.',
+                    source: 'INCOIS Operations', time: '2 hours ago', reporter: 'Monitoring Division', status: 'All systems normal'
+                }
+            ],
+
+            volunteers: [
+                {
+                    lat: 11.9416, lng: 79.8083, level: 'red', type: 'Flash Flood', icon: '🌊',
+                    title: '🆘 COASTAL FLOOD - Puducherry',
+                    description: 'Volunteer rescue teams report sudden coastal flooding in low-lying areas. 50+ families being evacuated.',
+                    source: 'NGO Volunteer', time: '1 minute ago', reporter: 'Disaster Response Team', families_affected: '50+'
+                },
+                {
+                    lat: 8.7642, lng: 78.1348, level: 'yellow', type: 'Fishing Warning', icon: '🎣',
+                    title: '⚠️ ROUGH SEAS - Kanyakumari',
+                    description: 'Fishing community volunteers advise against venturing into sea. Strong undercurrents detected.',
+                    source: 'Fisher Volunteer', time: '15 minutes ago', reporter: 'Fishing Community Leader', sea_state: 'Rough, 3-4m waves'
+                },
+                {
+                    lat: 21.7679, lng: 72.1519, level: 'yellow', type: 'Tidal Surge', icon: '🌀',
+                    title: '🌊 TIDAL SURGE - Dwarka Coast',
+                    description: 'Environmental volunteers monitoring unusual tidal patterns. Higher than normal high tides expected.',
+                    source: 'Environmental Group', time: '20 minutes ago', reporter: 'Marine Conservation Team', tide_level: '1.5m above normal'
+                }
+            ],
+
+            coastalResidents: [
+                {
+                    lat: 17.6868, lng: 83.2185, level: 'red', type: 'Storm Surge', icon: '⛈️',
+                    title: '🌪️ STORM SURGE - Visakhapatnam',
+                    description: 'Coastal residents report massive waves entering residential areas. Ground floor homes flooded.',
+                    source: 'Resident Association', time: '3 minutes ago', reporter: 'Colony Secretary', homes_affected: '200+ houses'
+                },
+                {
+                    lat: 12.9141, lng: 74.8560, level: 'yellow', type: 'Saltwater Intrusion', icon: '💧',
+                    title: '💧 SALTWATER INTRUSION - Mangalore',
+                    description: 'Coastal residents notice saltwater in wells and bore pumps. Possible seawater infiltration.',
+                    source: 'Resident Report', time: '45 minutes ago', reporter: 'Coastal Community', wells_affected: '15 wells'
+                },
+                {
+                    lat: 22.3038, lng: 70.8022, level: 'red', type: 'Cyclone Impact', icon: '🌀',
+                    title: '🌀 CYCLONE DAMAGES - Dwarka Port',
+                    description: 'Port area residents report severe structural damage from cyclonic winds. Boats damaged in harbor.',
+                    source: 'Port Community', time: '10 minutes ago', reporter: 'Harbor Resident', wind_speed: '150+ kmph'
+                }
+            ],
+
+            disasterManager: [
+                {
+                    lat: 9.9312, lng: 76.2673, level: 'yellow', type: 'Evacuation Alert', icon: '🚨',
+                    title: '📢 EVACUATION STANDBY - Kochi',
+                    description: 'District Disaster Management on high alert. Evacuation shelters prepared for potential storm impact.',
+                    source: 'District Collector', time: '25 minutes ago', reporter: 'DDMA Kochi', shelters_ready: '12 centers'
+                },
+                {
+                    lat: 16.5062, lng: 80.6480, level: 'red', type: 'Emergency Response', icon: '🚑',
+                    title: '🚑 EMERGENCY DEPLOYMENT - Machilipatnam',
+                    description: 'State disaster teams deployed. NDRF units mobilized for coastal rescue operations.',
+                    source: 'State Emergency Cell', time: '8 minutes ago', reporter: 'SDMA Andhra Pradesh', teams_deployed: '5 NDRF teams'
+                },
+                {
+                    lat: 10.7905, lng: 79.1378, level: 'yellow', type: 'Resource Alert', icon: '📦',
+                    title: '📦 RESOURCE MOBILIZATION - Nagapattinam',
+                    description: 'Emergency supplies being positioned. Medical teams on standby for potential casualties.',
+                    source: 'Emergency Coordinator', time: '35 minutes ago', reporter: 'District Emergency Officer', supplies: 'Food, water, medical'
+                }
+            ],
+
+            socialMedia: [
+                {
+                    lat: 12.2958, lng: 76.6394, level: 'red', type: 'Viral Alert', icon: '🔥',
+                    title: '🔥 VIRAL TSUNAMI FOOTAGE - Mangalore',
+                    description: 'Video of massive waves going viral on Instagram. Thousands sharing footage of unprecedented wave heights.',
+                    source: 'Instagram', time: '2 minutes ago', reporter: '@MangaloreBeach_Live', shares: '15K shares in 1hr'
+                },
+                {
+                    lat: 20.7181, lng: 70.0022, level: 'yellow', type: 'Twitter Storm', icon: '🐦',
+                    title: ' TRENDING ALERT - Gujarat Coast',
+                    description: 'Multiple Twitter users reporting strong winds and choppy seas. #GujaratStorm trending with 500+ tweets.',
+                    source: 'Twitter', time: '5 minutes ago', reporter: 'Multiple Users', hashtag: '#GujaratStorm - 500+ tweets'
+                },
+                {
+                    lat: 16.5449, lng: 81.5183, level: 'red', type: 'Facebook Emergency', icon: '📘',
+                    title: '📘 EMERGENCY POSTS - Kakinada',
+                    description: 'Facebook safety check activated. Residents posting distress calls and evacuation requests in local groups.',
+                    source: 'Facebook Groups', time: '1 minute ago', reporter: 'Local Community Groups', safety_checks: '200+ safety check-ins'
+                },
+                {
+                    lat: 18.9387, lng: 72.8358, level: 'yellow', type: 'YouTube Live', icon: '📹',
+                    title: '📹 LIVE STREAM ALERT - Mumbai Beaches',
+                    description: 'Multiple YouTube live streams showing rough sea conditions. 10K+ viewers watching real-time beach footage.',
+                    source: 'YouTube Live', time: '3 minutes ago', reporter: 'Beach Webcam Channels', viewers: '10K+ live viewers'
+                },
+                {
+                    lat: 8.0883, lng: 77.5385, level: 'red', type: 'WhatsApp Alert', icon: '💬',
+                    title: '💬 WHATSAPP EMERGENCY - Kanyakumari',
+                    description: 'Viral WhatsApp forwards about impending tsunami. Panic spreading through fishing community groups.',
+                    source: 'WhatsApp Groups', time: '30 seconds ago', reporter: 'Fishing Community', forwards: 'Viral in 50+ groups'
+                },
+                {
+                    lat: 14.0426, lng: 75.0792, level: 'yellow', type: 'Instagram Trend', icon: '🎵',
+                    title: '🎵 INSTAGRAM STORM VIDEOS - Karwar',
+                    description: 'Storm videos trending on Instagram. Users posting dramatic wave footage with warning hashtags.',
+                    source: 'Instagram', time: '10 minutes ago', reporter: '@UmangStormWatch', views: '1M+ views in 2hrs'
+                }
+            ]
+        };
+
+
+
+        // Create custom markers with icons
+        const createCustomMarker = (level, icon) => {
+            const colors = {
+                red: '#e74c3c',
+                yellow: '#f39c12',
+                green: '#27ae60'
+            };
+
+            const ringColors = {
+                red: 'rgba(231, 76, 60, 0.3)',
+                yellow: 'rgba(243, 156, 18, 0.3)',
+                green: 'rgba(39, 174, 96, 0.3)'
+            };
+
+            const alertLevel = level === 'red' ? 'critical-alert' : level === 'yellow' ? 'warning-alert' : 'normal-alert';
+
+            return L.divIcon({
+                className: 'custom-marker',
+                html: `
+                    <div class="marker-container ${alertLevel}" style="
+                        position: relative;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <div class="alert-ring" style="
+                            position: absolute;
+                            width: 40px;
+                            height: 40px;
+                            border: 3px solid ${colors[level]};
+                            border-radius: 50%;
+                            background: ${ringColors[level]};
+                            animation: ${level === 'red' ? 'critical-pulse' : level === 'yellow' ? 'warning-pulse' : 'normal-pulse'} 2s infinite;
+                        "></div>
+                        <div class="marker-core" style="
+                            width: 28px;
+                            height: 28px;
+                            background: linear-gradient(135deg, ${colors[level]}, ${level === 'red' ? '#c0392b' : level === 'yellow' ? '#e67e22' : '#2ecc71'});
+                            border: 2px solid white;
+                            border-radius: 50%;
+                            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            z-index: 2;
+                            position: relative;
+                        ">
+                            ${icon}
+                        </div>
+                        ${level === 'red' ? `
+                            <div class="emergency-blink" style="
+                                position: absolute;
+                                width: 50px;
+                                height: 50px;
+                                border: 2px solid #e74c3c;
+                                border-radius: 50%;
+                                animation: emergency-blink 1s infinite;
+                            "></div>
+                        ` : ''}
+                    </div>
+                    <style>
+                        @keyframes critical-pulse {
+                            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+                            50% { transform: scale(1.15); box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+                            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+                        }
+                        @keyframes warning-pulse {
+                            0% { transform: scale(1); opacity: 1; }
+                            50% { transform: scale(1.1); opacity: 0.8; }
+                            100% { transform: scale(1); opacity: 1; }
+                        }
+                        @keyframes normal-pulse {
+                            0% { opacity: 1; }
+                            50% { opacity: 0.7; }
+                            100% { opacity: 1; }
+                        }
+                        @keyframes emergency-blink {
+                            0% { opacity: 1; transform: scale(1); }
+                            50% { opacity: 0.3; transform: scale(1.2); }
+                            100% { opacity: 1; transform: scale(1); }
+                        }
+                    </style>
+                `,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+        };
+
+        // Store marker layers
+        const markerLayers = {
+            citizens: L.layerGroup().addTo(map),
+            volunteers: L.layerGroup().addTo(map),
+            coastalResidents: L.layerGroup().addTo(map),
+            disasterManager: L.layerGroup().addTo(map),
+            incois: L.layerGroup().addTo(map),
+            socialMedia: L.layerGroup().addTo(map)
+        };
+
+        // Add markers to map
+        const addMarkersToMap = () => {
+            Object.keys(hazardData).forEach(source => {
+                markerLayers[source].clearLayers();
+
+                hazardData[source].forEach(point => {
+                    const marker = L.marker([point.lat, point.lng], {
+                        icon: createCustomMarker(point.level, point.icon)
+                    });
+
+                    const urgencyClass = point.level === 'red' ? 'critical' : point.level === 'yellow' ? 'warning' : 'normal';
+                    const additionalInfo = point.wave_height ? `<strong>Wave Height:</strong> ${point.wave_height}<br>` :
+                        point.erosion_rate ? `<strong>Erosion Rate:</strong> ${point.erosion_rate}<br>` :
+                            point.conditions ? `<strong>Conditions:</strong> ${point.conditions}<br>` :
+                                point.families_affected ? `<strong>Families Affected:</strong> ${point.families_affected}<br>` :
+                                    point.sea_state ? `<strong>Sea State:</strong> ${point.sea_state}<br>` :
+                                        point.tide_level ? `<strong>Tide Level:</strong> ${point.tide_level}<br>` :
+                                            point.homes_affected ? `<strong>Homes Affected:</strong> ${point.homes_affected}<br>` :
+                                                point.wells_affected ? `<strong>Wells Affected:</strong> ${point.wells_affected}<br>` :
+                                                    point.wind_speed ? `<strong>Wind Speed:</strong> ${point.wind_speed}<br>` :
+                                                        point.shelters_ready ? `<strong>Shelters Ready:</strong> ${point.shelters_ready}<br>` :
+                                                            point.teams_deployed ? `<strong>Teams Deployed:</strong> ${point.teams_deployed}<br>` :
+                                                                point.supplies ? `<strong>Supplies:</strong> ${point.supplies}<br>` :
+                                                                    point.magnitude ? `<strong>Magnitude:</strong> ${point.magnitude}<br>` :
+                                                                        point.temp_anomaly ? `<strong>Temperature:</strong> ${point.temp_anomaly}<br>` :
+                                                                            point.landfall_eta ? `<strong>Landfall ETA:</strong> ${point.landfall_eta}<br>` :
+                                                                                point.status ? `<strong>Status:</strong> ${point.status}<br>` :
+                                                                                    point.shares ? `<strong>Social Reach:</strong> ${point.shares}<br>` :
+                                                                                        point.hashtag ? `<strong>Trending:</strong> ${point.hashtag}<br>` :
+                                                                                            point.safety_checks ? `<strong>Safety Checks:</strong> ${point.safety_checks}<br>` :
+                                                                                                point.viewers ? `<strong>Live Viewers:</strong> ${point.viewers}<br>` :
+                                                                                                    point.forwards ? `<strong>WhatsApp Reach:</strong> ${point.forwards}<br>` :
+                                                                                                        point.views ? `<strong>Video Views:</strong> ${point.views}<br>` : '';
+
+                    const stakeholderType = source === 'citizens' ? '👥 Citizens' :
+                        source === 'volunteers' ? '🤝 Volunteers' :
+                            source === 'coastalResidents' ? '🏘️ Coastal Residents' :
+                                source === 'disasterManager' ? '🚨 Disaster Managers' :
+                                    source === 'incois' ? '🌊 INCOIS' :
+                                        '📱 Social Media';
+
+                    const popupContent = `
+                        <div class="alert-popup ${urgencyClass}-popup">
+                            <div class="popup-header ${urgencyClass}-header">
+                                ${point.icon} ${point.title}
+                            </div>
+                            <div class="popup-content">
+                                <div class="hazard-type">
+                                    <strong>🌊 Hazard Type:</strong> ${point.type}
+                                </div>
+                                <div class="description">
+                                    ${point.description}
+                                </div>
+                                ${additionalInfo ? `<div class="additional-info">${additionalInfo}</div>` : ''}
+                            </div>
+                            <div class="popup-meta">
+                                <div class="source-info">
+                                    <strong>👤 Stakeholder:</strong> ${stakeholderType}<br>
+                                    <strong>📡 Source:</strong> ${point.source}<br>
+                                    <strong>📝 Reporter:</strong> ${point.reporter}<br>
+                                    <strong>⏰ Time:</strong> ${point.time}
+                                </div>
+                                ${point.level === 'red' ? '<div class="emergency-notice">🚨 IMMEDIATE ACTION REQUIRED</div>' : ''}
+                            </div>
+                        </div>
+                    `;
+
+                    marker.bindPopup(popupContent);
+                    markerLayers[source].addLayer(marker);
+                });
+            });
+        };
+
+        // Initialize markers
+        addMarkersToMap();
+
+        // Handle checkbox changes for all stakeholder types
+        const stakeholderIds = ['citizens', 'volunteers', 'coastalResidents', 'disasterManager', 'incois', 'socialMedia'];
+
+        stakeholderIds.forEach(id => {
+            document.getElementById(id).addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    map.addLayer(markerLayers[id]);
+                } else {
+                    map.removeLayer(markerLayers[id]);
+                }
+                updateAlertCount();
+            });
+        });
+
+        // Update alert count
+        const updateAlertCount = () => {
+            let count = 0;
+            Object.keys(markerLayers).forEach(layer => {
+                if (map.hasLayer(markerLayers[layer])) {
+                    count += hazardData[layer].length;
+                }
+            });
+            document.getElementById('alertCount').textContent = count;
+        };
+
+        // Simulate real-time updates
+        const updateLastUpdateTime = () => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('lastUpdate').textContent = timeString;
+        };
+
+        // Update time every 30 seconds
+        setInterval(updateLastUpdateTime, 30000);
+
+        // Initialize alert count
+        updateAlertCount();
+
+        // Add India boundary highlight (optional)
+        const indiaStyle = {
+            color: '#2c3e50',
+            weight: 2,
+            opacity: 0.8,
+            fillColor: 'rgba(52, 152, 219, 0.1)',
+            fillOpacity: 0.1
+        };
+
+        // Simulate new stakeholder alerts
+        const simulateNewAlert = () => {
+            const stakeholders = ['citizens', 'volunteers', 'coastalResidents', 'disasterManager', 'incois', 'socialMedia'];
+            const levels = ['red', 'yellow', 'green'];
+            const hazardTypes = {
+                citizens: ['High Waves', 'Beach Erosion', 'Normal Conditions'],
+                volunteers: ['Rescue Operation', 'Community Alert', 'Safety Check'],
+                coastalResidents: ['Property Damage', 'Water Logging', 'Normal Status'],
+                disasterManager: ['Emergency Response', 'Resource Deployment', 'Monitoring'],
+                incois: ['Weather Warning', 'Ocean Monitoring', 'System Update'],
+                socialMedia: ['Viral Alert', 'Trending Topic', 'Live Stream', 'Emergency Post']
+            };
+
+            const randomStakeholder = stakeholders[Math.floor(Math.random() * stakeholders.length)];
+            const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+            const randomType = hazardTypes[randomStakeholder][Math.floor(Math.random() * hazardTypes[randomStakeholder].length)];
+
+            const indianCoasts = [
+                { lat: 19.0760, lng: 72.8777, city: 'Mumbai' },
+                { lat: 13.0827, lng: 80.2707, city: 'Chennai' },
+                { lat: 15.2993, lng: 74.1240, city: 'Goa' },
+                { lat: 11.9416, lng: 79.8083, city: 'Puducherry' },
+                { lat: 17.6868, lng: 83.2185, city: 'Visakhapatnam' },
+                { lat: 9.9312, lng: 76.2673, city: 'Kochi' },
+                { lat: 21.7679, lng: 72.1519, city: 'Dwarka' },
+                { lat: 12.9141, lng: 74.8560, city: 'Mangalore' }
+            ];
+
+            const randomLocation = indianCoasts[Math.floor(Math.random() * indianCoasts.length)];
+
+            const newAlert = {
+                lat: randomLocation.lat + (Math.random() - 0.5) * 0.5,
+                lng: randomLocation.lng + (Math.random() - 0.5) * 0.5,
+                level: randomLevel,
+                type: randomType,
+                icon: randomLevel === 'red' ? '🚨' : randomLevel === 'yellow' ? '⚠️' : '✅',
+                title: `${randomType} Alert - ${randomLocation.city}`,
+                description: `Real-time alert from ${randomStakeholder} network monitoring coastal conditions.`,
+                source: `${randomStakeholder.charAt(0).toUpperCase() + randomStakeholder.slice(1)} Network`,
+                time: 'Just now',
+                reporter: 'Automated System'
+            };
+
+            // Uncomment to enable automatic new alerts
+            // hazardData[randomStakeholder].push(newAlert);
+            // addMarkersToMap();
+            // updateAlertCount();
+        };
+
+        // Set bounds to focus on India
+        const indiaBounds = [
+            [6.5546079, 68.1113787], // Southwest corner
+            [37.0841, 97.4152314]     // Northeast corner
+        ];
+
+        // Fit map to India bounds
+        map.fitBounds(indiaBounds);
+
+        // Uncomment to enable automatic new alerts every 2 minutes
+        // setInterval(simulateNewAlert, 120000);
+
+        console.log('India Ocean Hazard Map loaded successfully');
+        console.log('Stakeholders: Citizens, Volunteers, Coastal Residents, Disaster Managers, INCOIS, Social Media');
+        console.log('Total active alerts:', Object.values(hazardData).reduce((sum, arr) => sum + arr.length, 0));
+    </script>
