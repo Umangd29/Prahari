@@ -284,7 +284,7 @@ app.get('/profile/:id/edit', isLoggedIn, isProfileOwner, wrapAsync(async (req, r
 app.put('/profile/:id', isLoggedIn, isProfileOwner, wrapAsync(async (req, res) => {
     const { id } = req.params;
     const { username, email, phoneNum, aadharNum } = req.body; // adjust fields to what your form sends
-    await User.findByIdAndUpdate(id, { username, email, phoneNum , aadharNum});
+    // await User.findByIdAndUpdate(id, { username, email, phoneNum , aadharNum});
     req.flash("success", "Profile updated successfully!");
     res.redirect(`/profile/${id}`);
 }));
