@@ -1,0 +1,675 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+/* Profile Page Scoped CSS - Enhanced */
+.profile-container {
+    background: linear-gradient(135deg, #f8f9ff 0%, #e3e8ff 100%);
+    margin-top: 60px;
+    border-radius: 24px;
+    padding: 2rem;
+    min-height: calc(100vh - 100px);
+}
+
+/* Enhanced Profile Section */
+.profile-container .profile-section {
+    background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.1);
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-container .profile-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 100%;
+    animation: shimmerTop 3s ease-in-out infinite;
+}
+
+@keyframes shimmerTop {
+    0%, 100% { background-position: 200% 0; }
+    50% { background-position: -200% 0; }
+}
+
+.profile-container .profile-img {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.profile-container .profile-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 36px rgba(102, 126, 234, 0.4);
+}
+
+.profile-container .profile-img::before {
+    content: '👤';
+    font-size: 3rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.profile-container .profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.profile-container .username {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2c3e50, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.profile-container .profile-info p {
+    margin: 0.3rem 0;
+    color: #6c757d;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.profile-container .profile-info p::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Enhanced Buttons */
+.profile-container .btn-custom {
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-container .btn-outline-secondary {
+    border: 2px solid #e3e8ff;
+    color: #667eea;
+    background: linear-gradient(135deg, #fff, #f8f9ff);
+}
+
+.profile-container .btn-outline-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.profile-container .btn-outline-secondary:hover {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    border-color: transparent;
+}
+
+.profile-container .btn-outline-secondary:hover::before {
+    left: 100%;
+}
+
+.profile-container .edit-btn {
+    text-decoration: none;
+}
+
+/* Enhanced Section Titles */
+.profile-container .section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2c3e50, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.profile-container .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+/* Enhanced Report Cards */
+.profile-container .report-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-container .report-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.profile-container .report-card:hover::before {
+    transform: scaleX(1);
+}
+
+.profile-container .report-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(102, 126, 234, 0.15);
+}
+
+.profile-container .report-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-container .report-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.profile-container .card-placeholder {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 0;
+    height: 200px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.profile-container .report-card:hover .card-placeholder {
+    background: linear-gradient(135deg, #e3e8ff, #f0f2ff);
+    color: #667eea;
+}
+
+.profile-container .report-card .card-body {
+    padding: 1.5rem;
+}
+
+.profile-container .report-card .card-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.profile-container .report-card .card-text {
+    color: #6c757d;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.profile-container .report-card .btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.profile-container .report-card .btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Enhanced Reward Cards */
+.profile-container .reward-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 1.5rem;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-container .reward-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    animation: rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-container .reward-card:hover::before {
+    opacity: 1;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.profile-container .reward-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(102, 126, 234, 0.2);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.profile-container .bagde-img {
+    height: 80px;
+    width: 80px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+    position: relative;
+    z-index: 1;
+}
+
+.profile-container .reward-card:hover .bagde-img {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 8px 20px rgba(102, 126, 234, 0.3));
+}
+
+.profile-container .bagde-text {
+    text-align: center;
+    font-weight: 600;
+    color: #667eea;
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced Certificate Card */
+.profile-container .profile-certificate-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease;
+    background: linear-gradient(135deg, #fff, #f8f9ff);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+.profile-container .profile-certificate-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    /* background: linear-gradient(135deg, #667eea, #764ba2, #667eea); */
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+}
+
+.profile-container .profile-certificate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(102, 126, 234, 0.2);
+}
+
+.profile-container .profile-certificate-card img {
+    border-radius: 17px;
+    height: 400px;
+    width: 100%;
+    max-width: 400px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-container .profile-certificate-card:hover img {
+    transform: scale(1.02);
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1rem;
+        margin-top: 60px;
+    }
+    
+    .profile-container .profile-section {
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+
+    .profile-container .profile-img {
+        margin: 0 auto 1rem auto;
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-container .profile-img::before {
+        font-size: 2.5rem;
+    }
+
+    .profile-container .username {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-container .btn-custom {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .profile-container .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Loading Animation */
+.profile-container .loading-shimmer {
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Success Animation */
+.profile-container .success-pulse {
+    animation: successPulse 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+</style>
+
+<div class="container profile-container">
+    <!-- Enhanced Profile Section -->
+    <section class="profile-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="d-flex flex-column flex-md-row align-items-center">
+                    <div class="profile-img me-md-4"></div>
+                    <div class="profile-details">
+                        <h1 class="username">
+                            <%= user.username %>
+                        </h1>
+                        <div class="profile-info">
+                            <p><b>Email</b> <%= user.email %></p>
+                            <p><b>Phone</b> <%= user.phoneNum %></p>
+                            <p><b>Aadhar</b> <%= user.aadharNum %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-md-end mt-3 mt-md-0 gap-3">
+                <a href="/profile/<%= user._id %>/edit" class="btn btn-outline-secondary btn-custom edit-btn">
+                    <i class="fas fa-edit me-2"></i>Edit Profile
+                </a>
+                <button class="btn btn-outline-secondary btn-custom share-btn">
+                    <i class="fas fa-share-alt me-2"></i>Share
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Reports Section -->
+    <section class="reports-section mb-5">
+        <h2 class="section-title mb-4">
+            <i class="fas fa-chart-line me-3"></i>Reports by <%= user.username %>
+        </h2>
+        <div class="row">
+            <% if (reports.length === 0) { %>
+                <div class="col-12">
+                    <div class="text-center p-5" style="background: linear-gradient(135deg, #f8f9ff, #e3e8ff); border-radius: 16px; border: 2px dashed #667eea;">
+                        <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                        <p class="text-muted fs-5">No reports yet. Start sharing your ocean observations!</p>
+                        <a href="/reports/new" class="btn btn-primary mt-2">Create First Report</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <% reports.forEach(report => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="report-card card h-100">
+                            <% if (report.image && report.image.url) { %>
+                                <img src="<%= report.image.url %>" class="card-img-top" alt="Report Image">
+                            <% } else { %>
+                                <div class="card-placeholder">
+                                    <div>
+                                        <i class="fas fa-chart-bar fa-2x mb-2"></i>
+                                        <div>No Image Available</div>
+                                    </div>
+                                </div>
+                            <% } %>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <%= report.title %>
+                                </h5>
+                                <p class="card-text flex-grow-1">
+                                    <%= report.description.substring(0, 120) %>...
+                                </p>
+                                <div class="mt-auto">
+                                    <a href="/reports/<%= report._id %>" class="btn btn-primary">
+                                        <i class="fas fa-eye me-2"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Enhanced Rewards Section -->
+    <section class="rewards-section mb-5">
+        <h2 class="section-title mb-4">
+            <i class="fas fa-trophy me-3"></i>Achievements & Rewards
+        </h2>
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                <div class="reward-card h-100">
+                    <img src="/images/bagde 1.png" class="bagde-img mx-auto d-block" alt="Truth Seeker Badge">
+                    <div class="bagde-text">Truth Seeker</div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                <div class="reward-card h-100">
+                    <img src="/images/bagde 2.png" class="bagde-img mx-auto d-block" alt="Shield Badge">
+                    <div class="bagde-text">Ocean Guardian</div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                <div class="reward-card h-100">
+                    <img src="/images/bagde 3.png" class="bagde-img mx-auto d-block" alt="Validator Badge">
+                    <div class="bagde-text">The Validator</div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                <div class="reward-card h-100">
+                    <img src="/images/bagde 4.png" class="bagde-img mx-auto d-block" alt="Master Badge">
+                    <div class="bagde-text">Wave Master</div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                <div class="reward-card h-100">
+                    <img src="/images/bagde 5.png" class="bagde-img mx-auto d-block" alt="Precision Master Badge">
+                    <div class="bagde-text">Precision Master</div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                <div class="reward-card h-100">
+                    <img src="/images/bagde 6.png" class="bagde-img mx-auto d-block" alt="Compass Badge">
+                    <div class="bagde-text">The Compass</div>
+                </div>
+            </div>
+            
+            <div class="col-12 mt-4">
+                <div class="text-center">
+                    <h3 class="mb-4" style="color: #667eea; font-weight: 600;">
+                        <i class="fas fa-certificate me-2"></i>Certification of Excellence
+                    </h3>
+                    <div class="profile-certificate-card mx-auto" style="max-width: 500px;">
+                        <img src="/images/certificate.jpg" alt="Ocean Conservation Certificate" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.profile-container');
+    if (!container) return;
+
+    // Enhanced hover effects with improved performance
+    const cards = container.querySelectorAll('.report-card, .reward-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.willChange = 'transform';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.willChange = 'auto';
+        });
+    });
+
+    // Enhanced profile buttons with better feedback
+    const profileButtons = container.querySelectorAll('.btn-outline-secondary');
+    profileButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // Don't prevent default for edit button (it's a link)
+            if (btn.classList.contains('edit-btn')) return;
+            
+            e.preventDefault();
+            const icon = btn.querySelector('i');
+            const originalText = btn.innerHTML;
+            const originalClass = icon ? icon.className : '';
+            
+            // Success animation
+            btn.classList.add('success-pulse');
+            if (icon) {
+                icon.className = 'fas fa-check me-2';
+                btn.innerHTML = icon.outerHTML + 'Success!';
+            }
+            
+            btn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+            btn.style.borderColor = '#28a745';
+            btn.style.color = '#fff';
+            
+            setTimeout(() => {
+                btn.classList.remove('success-pulse');
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }, 2000);
+        });
+    });
+
+    // Add loading states for report cards on click
+    const reportLinks = container.querySelectorAll('.report-card .btn-primary');
+    reportLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const btn = e.currentTarget;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+            btn.style.pointerEvents = 'none';
+            
+            // Reset after a short delay (in case navigation fails)
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = 'auto';
+            }, 3000);
+        });
+    });
+
+    // Add intersection observer for smooth animations on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe all cards for scroll animations
+    const allCards = container.querySelectorAll('.report-card, .reward-card, .profile-section');
+    allCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+
+    // Add click effect for reward cards
+    const rewardCards = container.querySelectorAll('.reward-card');
+    rewardCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.style.animation = 'none';
+            card.offsetHeight; // Trigger reflow
+            card.style.animation = 'successPulse 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        });
+    });
+});
+</script>

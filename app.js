@@ -283,8 +283,8 @@ app.get('/profile/:id/edit', isLoggedIn, isProfileOwner, wrapAsync(async (req, r
 // Handle profile update
 app.put('/profile/:id', isLoggedIn, isProfileOwner, wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const { username, email, phoneNum } = req.body; // adjust fields to what your form sends
-    await User.findByIdAndUpdate(id, { username, email, phoneNum });
+    const { username, email, phoneNum, aadharNum } = req.body; // adjust fields to what your form sends
+    await User.findByIdAndUpdate(id, { username, email, phoneNum , aadharNum});
     req.flash("success", "Profile updated successfully!");
     res.redirect(`/profile/${id}`);
 }));
@@ -423,7 +423,7 @@ app.get('/profile', isLoggedIn, (req, res) => {
     res.redirect(`/profile/${req.user._id}`);
 });
 
-app.get('/profileEdit', (req, res) => res.render("profileEdit"));
+app.get('/profileEdit', (req, res) => res.redirect(`/profileEdit/${req.user._id}/edit`));
 
 // ERROR HANDLING
 app.all('*', (req, res, next) => next(new ExpressError(404, "Page Not Found")));

@@ -32,6 +32,7 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    padding-top: 50px;
 }
 
 /* Navigation Styles */
@@ -106,6 +107,12 @@ body {
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
     color: white !important;
+}
+
+.sign-in-btn:hover {
+    background: #cc3333;
+    color: white;
+    transform: translateY(-1px);
 }
 
 .profile-icon {
